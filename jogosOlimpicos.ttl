@@ -1,0 +1,214 @@
+@prefix : <http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos> .
+
+<http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#fazParteDe
+:fazParteDe rdf:type owl:ObjectProperty ;
+            owl:inverseOf :temEvento ;
+            rdfs:domain :Evento ;
+            rdfs:range :JogoOlimpico .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#ganhouMedalhaBronze
+:ganhouMedalhaBronze rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :medalhou ;
+                     owl:inverseOf :terceiroLugar .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#ganhouMedalhaOuro
+:ganhouMedalhaOuro rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :medalhou ;
+                   owl:inverseOf :primeiroLugar .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#ganhouMedalhaPrata
+:ganhouMedalhaPrata rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :medalhou ;
+                    owl:inverseOf :segundoLugar .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#medalhou
+:medalhou rdf:type owl:ObjectProperty ;
+          owl:inverseOf :temMedalhado ;
+          rdfs:domain :Atleta ;
+          rdfs:range :Evento .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#participou
+:participou rdf:type owl:ObjectProperty ;
+            rdfs:domain :Atleta ;
+            rdfs:range :Evento .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#pertence
+:pertence rdf:type owl:ObjectProperty ;
+          owl:inverseOf :temAtleta ;
+          rdfs:domain :Atleta ;
+          rdfs:range :Equipa .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#primeiroLugar
+:primeiroLugar rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :temMedalhado .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#segundoLugar
+:segundoLugar rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :temMedalhado .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#temAtleta
+:temAtleta rdf:type owl:ObjectProperty ;
+           rdfs:domain :Equipa ;
+           rdfs:range :Atleta .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#temEvento
+:temEvento rdf:type owl:ObjectProperty ;
+           rdfs:domain :JogoOlimpico ;
+           rdfs:range :Evento .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#temMedalhado
+:temMedalhado rdf:type owl:ObjectProperty ;
+              rdfs:domain :Evento ;
+              rdfs:range :Atleta .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#terceiroLugar
+:terceiroLugar rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :temMedalhado .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#altura
+:altura rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Atleta ;
+        rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#ano
+:ano rdf:type owl:DatatypeProperty ;
+     rdfs:domain :JogoOlimpico ;
+     rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#cidade
+:cidade rdf:type owl:DatatypeProperty ;
+        rdfs:domain :JogoOlimpico ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#designacao
+:designacao rdf:type owl:DatatypeProperty ;
+            rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#desporto
+:desporto rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Evento ;
+          rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#idade
+:idade rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Atleta ;
+       rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#nome
+:nome rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Atleta ;
+      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#peso
+:peso rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Atleta ;
+      rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#sexo
+:sexo rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Atleta ;
+      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#temporada
+:temporada rdf:type owl:DatatypeProperty ;
+           rdfs:domain :JogoOlimpico ;
+           rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#Atleta
+:Atleta rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#Equipa
+:Equipa rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#Evento
+:Evento rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#JogoOlimpico
+:JogoOlimpico rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#Atleta15
+:Atleta15 rdf:type owl:NamedIndividual ,
+                   :Atleta ;
+          :ganhouMedalhaBronze <http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#1920SummerSwimming1> ;
+          :participou <http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#1920SummerSwimming1> ;
+          :pertence :FIN ;
+          :idade 30 ;
+          :nome "Arvo Ossian Aaltonen"^^xsd:string ;
+          :sexo "M"^^xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#FIN
+:FIN rdf:type owl:NamedIndividual ,
+              :Equipa ;
+     :designacao "Finland"^^xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#Summer1920
+:Summer1920 rdf:type owl:NamedIndividual ,
+                     :JogoOlimpico ;
+            :temEvento <http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#1920SummerSwimming1> ;
+            :ano 1920 ;
+            :cidade "Antwerpen"^^xsd:string ;
+            :designacao "1920 Summer"^^xsd:string ;
+            :temporada "Summer"^^xsd:string .
+
+
+###  http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#1920SummerSwimming1
+<http://www.semanticweb.org/asus/ontologies/2020/5/jogosOlimpicos#1920SummerSwimming1> rdf:type owl:NamedIndividual ,
+                                                                                                :Evento ;
+                                                                                       :designacao "Swimming Men's 400 metres Breaststroke"^^xsd:string ;
+                                                                                       :desporto "Swimming"^^xsd:string .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
