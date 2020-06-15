@@ -54,7 +54,7 @@ router.get('/eventos/:id/podio', function(req, res, next) {
     .catch(e => res.status(500).send(`Erro na listagem do pódio do evento: ${e}`))
 });
 
-router.get('/filmes/:id', function(req, res, next) {
+router.get('/eventos/:id', function(req, res, next) {
   Eventos.getEvento(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).send(`Erro na listagem do evento ${req.params.id}: ${e}`))
