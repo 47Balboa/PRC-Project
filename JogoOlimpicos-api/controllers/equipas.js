@@ -26,9 +26,8 @@ var getLink = "http://localhost:7200/repositories/JogosOlimpicos" + "?query="
 Equipas.getLista = async function(){
     
     var query = `select ?equipa ?idEquipa ?designacao where{
-
     ?equipa a c:Equipa.
-    ?equipa c:designacao ?designacao
+    ?equipa c:designacao ?designacao .
     bind(strafter(str(?equipa), 'jogosOlimpicos#') as ?idEquipa) .
     
 } ` 
@@ -44,16 +43,12 @@ Equipas.getLista = async function(){
 }
 
 Equipas.getEventosDaEquipa = async function(idEquipa){
-    var query = `select ?evento ?idEvento ?designacao   where{
-
+    var query = `select distinct ?evento ?idEvento ?designacao  where{
         c:${idEquipa} a c:Equipa.
-    	c:${idEquipa}  c:temAtleta ?atleta.
+    	c:${idEquipa} c:temAtleta ?atleta.
     	?atleta c:participou ?evento.
     	?evento c:designacao ?designacao.
     	
-    	
-       
-        
         bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
     } ` 
     var encoded = encodeURIComponent(prefixes + query)
@@ -68,8 +63,7 @@ Equipas.getEventosDaEquipa = async function(idEquipa){
 }
 
 Equipas.getAtletasDaEquipa = async function(idEquipa){
-    var query = `select ?atleta ?idAtleta ?nome   where{
-
+    var query = `select ?atleta ?idAtleta ?nome where{
         c:${idEquipa} a c:Equipa.
         c:${idEquipa} c:temAtleta ?atleta.
     	?atleta c:nome ?nome.   
@@ -88,16 +82,12 @@ Equipas.getAtletasDaEquipa = async function(idEquipa){
 }
 
 Equipas.getJogosDaEquipa = async function(idEquipa){ // NAo consegui fazer o distinct (erro de memoria)
-    var query = `select   ?jogo ?idJogo   where{
-
+    var query = `select distinct ?jogo ?idJogo where{
         c:${idEquipa} a c:Equipa.
-    	c:${idEquipa}  c:designacao ?designacao.
-    	c:${idEquipa}  c:temAtleta ?atleta.
+    	c:${idEquipa} c:temAtleta ?atleta.
     	?atleta c:participou ?evento.
     	?evento c:fazParteDe ?jogo.
-    	
-    	
-         
+    
         bind(strafter(str(?jogo), 'jogosOlimpicos#') as ?idJogo) .
     } ` 
     var encoded = encodeURIComponent(prefixes + query)

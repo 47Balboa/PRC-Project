@@ -47,13 +47,12 @@ Eventos.getLista = async function(){
 
 
 Eventos.getAtletasDoEvento = async function(idEvento){
-    var query = `select  ?idAtleta ?atleta where {
+    var query = `select ?idAtleta ?atleta where {
         c:${idEvento} a c:Evento .
         ?at a c:Atleta.
-        ?at c:participou ?${idEvento}.
+        ?at c:participou c:${idEvento}.
         ?at c:nome ?atleta.
         bind(strafter(str(?at), 'jogosOlimpicos#') as ?idAtleta) .
-
     }` 
     var encoded = encodeURIComponent(prefixes + query)
 
@@ -65,11 +64,12 @@ Eventos.getAtletasDoEvento = async function(idEvento){
         throw(e)
     } 
 }
+
 Eventos.getPodioDoEvento = async function(idEvento){
     var query = `select distinct ?idEvento ?designacao 
-    (group_concat(?onome; separator = ',') as ?onomes) 
-    (group_concat( ?pnome; separator = ',') as ?pnomes)
-    (group_concat(?bnome; separator = ',') as ?bnomes) where{
+    (group_concat(distinct ?onome; separator = ';') as ?onomes) 
+    (group_concat(distinct ?pnome; separator = ';') as ?pnomes)
+    (group_concat(distinct ?bnome; separator = ';') as ?bnomes) where{
         c:${idEvento} a c:Evento .
         c:${idEvento} c:designacao ?designacao .
         optional{ 
@@ -128,7 +128,7 @@ Eventos.getEvento = async function(idEvento){
           //nome do campo: variável
             info : atomica[0],
             atletas: atletas,
-            podio: podio
+            podio: podio[0]
         }
         return evento
     }

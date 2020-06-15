@@ -25,18 +25,16 @@ var getLink = "http://localhost:7200/repositories/JogosOlimpicos" + "?query="
 
 Jogos.getLista = async function(){
     
-    var query = `select ?jogo ?idJogo ?designacao ?cidade ?ano ?temporada   where{
-
+    var query = `select ?jogo ?idJogo ?designacao ?cidade ?ano ?temporada where{
         ?jogo a c:JogoOlimpico.
         ?jogo c:designacao ?designacao.
         ?jogo c:cidade ?cidade.
         ?jogo c:ano ?ano.
         ?jogo c:temporada ?temporada.
-       
         
         bind(strafter(str(?jogo), 'jogosOlimpicos#') as ?idJogo) .
-        bind(strafter(str(?event), 'jogosOlimpicos#') as ?evento) .
-} ` 
+    } order by ?ano ` 
+
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
@@ -52,7 +50,7 @@ Jogos.getLista = async function(){
 Jogos.getEventosDoJogo = async function(idJogo){
     var query = `select  ?idEvento ?evento  ?designacao ?idEvento where {
         c:${idJogo} a c:JogoOlimpico.
-        c:${idJogo}  c:temEvento ?evento.
+        c:${idJogo} c:temEvento ?evento.
         ?evento c:designacao ?designacao.
     
     bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
@@ -67,13 +65,15 @@ Jogos.getEventosDoJogo = async function(idJogo){
         throw(e)
     } 
 }
+
+
 Jogos.getAtletasDoJogo = async function(idJogo){
-    var query = `select ?atleta ?idAtleta ?nome where{
+    var query = `select distinct ?atleta ?idAtleta ?nome where{
 
         c:${idJogo} rdf:type c:JogoOlimpico.
         c:${idJogo} c:temEvento ?evento.
-        ?atleta :participou ?evento.
-        ?atleta :nome ?nome.
+        ?atleta c:participou ?evento.
+        ?atleta c:nome ?nome.
           
       
         bind(strafter(str(?atleta), 'jogosOlimpicos#') as ?idAtleta) .  
@@ -90,10 +90,9 @@ Jogos.getAtletasDoJogo = async function(idJogo){
 }
 
 Jogos.getEquipasDoJogo = async function(idJogo){
-    var query = `select  ?idEquipa ?equipa  ?designacao where{
-    	
+    var query = `select distinct ?idEquipa ?equipa ?designacao where{ 	
     	c:${idJogo} a c:JogoOlimpico.
-		c:${idJogo}c:temEvento ?evento.
+		c:${idJogo} c:temEvento ?evento.
 		?atleta c:participou ?evento.
 		?atleta c:pertence ?equipa.
     	?equipa c:designacao ?designacao.
@@ -118,8 +117,7 @@ async function getJogoAtomica(idJogo){
         c:${idJogo} c:designacao ?designacao .
         c:${idJogo} c:cidade ?cidade .
         c:${idJogo} c:ano ?ano .
-        c:${idJogo} c:temporada ?temporada.
-        
+        c:${idJogo} c:temporada ?temporada.      
     }` 
     var encoded = encodeURIComponent(prefixes + query)
 
@@ -145,7 +143,7 @@ Jogos.getJogo = async function(idJogo){
             info : atomica[0],
             eventos: eventos,
             atletas: atletas,
-            equipas: equipas,
+            equipas: equipas
 
         }
         return atleta

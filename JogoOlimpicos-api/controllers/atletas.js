@@ -67,8 +67,11 @@ Atletas.getEventosDoAtleta = async function(idAtleta){
         throw(e)
     } 
 }
+
 Atletas.getMedalhasDoAtleta = async function(idAtleta){
-    var query = `select ?ouro ?prata ?bronze where{
+    var query = `select (group_concat(distinct ?ouro; separator = ';') as ?medalhasOuro) 
+    (group_concat(distinct ?prata; separator = ';') as ?medalhasPrata)
+    (group_concat(distinct ?bronze; separator = ';') as ?medalhasBronze) where{
         c:${idAtleta} a c:Atleta .
         optional{ 
             c:${idAtleta} c:ganhouMedalhaOuro ?o .
@@ -102,10 +105,10 @@ async function getAtletaAtomica(idAtleta){
     var query = `select ?nome ?idade ?altura ?peso ?sexo where {
         c:${idAtleta} a c:Atleta .
         c:${idAtleta} c:nome ?nome .
-        c:${idAtleta} c:idade ?idade .
-        c:${idAtleta} c:altura ?altura .
-        c:${idAtleta} c:peso ?peso .
         c:${idAtleta} c:sexo ?sexo .
+        optional{ c:${idAtleta} c:idade ?idade . }
+        optional{ c:${idAtleta} c:altura ?altura . }
+        optional{ c:${idAtleta} c:peso ?peso .}
     }` 
     var encoded = encodeURIComponent(prefixes + query)
 
@@ -129,7 +132,7 @@ Atletas.getAtleta = async function(idAtleta){
           //nome do campo: variável
             info : atomica[0],
             eventos: eventos,
-            medalhas: medalhas
+            medalhas: medalhas[0]
         }
         return atleta
     }
