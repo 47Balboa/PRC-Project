@@ -7,7 +7,7 @@ Vue.use(VueRouter)
   const routes = [
   
   {
-    path: '/',
+    path: '/jogos',
     name: 'Página dos Jogos Olimpicos',
     component: () => import( '../views/Jogos/Jogos.vue')
   
@@ -16,6 +16,12 @@ Vue.use(VueRouter)
     path: '/eventos',
     name: 'Página dos Eventos',
     component: () => import( '../views/Eventos/Eventos.vue')
+  
+  },
+  {
+    path: '/equipas',
+    name: 'Página das Equipas',
+    component: () => import( '../views/Equipas/Equipas.vue')
   
   }
   
