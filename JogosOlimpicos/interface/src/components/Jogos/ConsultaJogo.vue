@@ -55,9 +55,9 @@
 import axios from 'axios'
 const lhost = require("@/config/global").host;
 
-import Eventos from "@/components/Eventos.vue"
-import Equipas from "@/components/Equipas.vue"
-import Atletas from "@/components/Atletas.vue"
+import Eventos from "@/components/Jogos/Eventos.vue"
+import Equipas from "@/components/Jogos/Equipas.vue"
+import Atletas from "@/components/Jogos/Atletas.vue"
 
 
 export default {

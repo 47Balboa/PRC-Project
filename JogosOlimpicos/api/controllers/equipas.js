@@ -69,7 +69,7 @@ Equipas.getAtletasDaEquipa = async function(idEquipa){
     	?atleta c:nome ?nome.   
         
         bind(strafter(str(?atleta), 'jogosOlimpicos#') as ?idAtleta) .
-    }` 
+    }order by ?atleta ` 
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
@@ -89,7 +89,7 @@ Equipas.getJogosDaEquipa = async function(idEquipa){ // NAo consegui fazer o dis
     	?evento c:fazParteDe ?jogo.
     
         bind(strafter(str(?jogo), 'jogosOlimpicos#') as ?idJogo) .
-    } ` 
+    } order by ?jogo` 
     var encoded = encodeURIComponent(prefixes + query)
 
     try{

@@ -13,17 +13,32 @@ Vue.use(VueRouter)
   
   },
   {
+    path: '/jogos/:id',
+    name: 'Consulta Jogo',
+    component: () => import( '../views/Jogos/ConsultaJogo.vue')
+  },
+  {
     path: '/eventos',
     name: 'Página dos Eventos',
     component: () => import( '../views/Eventos/Eventos.vue')
   
   },
   {
+    path: '/eventos/:id',
+    name: 'Consulta Evento',
+    component: () => import( '../views/Eventos/ConsultaEvento.vue')
+  },
+  {
     path: '/equipas',
     name: 'Página das Equipas',
     component: () => import( '../views/Equipas/Equipas.vue')
   
-  }
+  },
+  {
+    path: '/equipas/:id',
+    name: 'Consulta Equipa',
+    component: () => import( '../views/Equipas/ConsultaEquipa.vue')
+  },
   
 ]
 

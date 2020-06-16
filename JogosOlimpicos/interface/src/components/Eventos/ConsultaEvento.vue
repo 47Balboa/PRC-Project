@@ -46,7 +46,7 @@ import axios from 'axios'
 const lhost = require("@/config/global").host;
 
 import Atletas from "@/components/Eventos/Atletas.vue"
-import Podio from "@/components/Eventos/Podio/Generos.vue"
+import Podio from "@/components/Eventos/Podio.vue"
 
 
 export default {
