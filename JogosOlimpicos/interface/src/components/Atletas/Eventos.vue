@@ -1,13 +1,13 @@
 <template>
   <v-row v-if="lista.length !=0">
     <v-col cols="2">
-      <div class="info-label">Events:</div>
+      <div class="info-label">Participated In:</div>
     </v-col>
-    <v-col>
+    <v-col> 
       <div class="info-content">
         <ul v-for="evento in lista" :key="evento">
           <li @click="mostraEvento(evento)">
-            {{evento.designacao}} <!-- agrupar por desporto seque -->
+            {{evento.designacao}} [{{evento.jogo}}]
           </li>
         </ul>
       </div>
@@ -19,11 +19,13 @@
 export default {
   name: "Eventos",
   props: ["lista"],
-  methods: {
-    mostraEvento: function(e) {
+
+  methods : {
+    mostraEvento: function(e){
       this.$router.push('/eventos/' + e.idEvento)
     }
   }
+  
 };
 </script>
 

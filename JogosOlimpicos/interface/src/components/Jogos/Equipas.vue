@@ -1,34 +1,30 @@
 <template>
-  
-
-                <v-row v-if="lista.length !=0">
-                  <v-col cols="2">
-                    <div class="info-label">Teams</div>
-                  </v-col>
-                  <v-col>
-                    <div class="info-content">
-                      <ul>
-                        <li>
-                          <span v-for="equipa in lista" :key="equipa">
-                              {{equipa.designacao}}
-                        
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </v-col>
-        
-                </v-row>
-          
+  <v-row v-if="lista.length !=0">
+    <v-col cols="2">
+      <div class="info-label">Teams:</div>
+    </v-col>
+    <v-col>
+      <div class="info-content">
+        <ul v-for="equipa in lista" :key="equipa">
+          <li @click="mostraEquipa(equipa)">
+            {{equipa.designacao}} <!-- por a contagem de medalhas para cada equipa maybe  -->
+          </li>
+        </ul>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
-  name: 'Equipas',
+  name: "Equipas",
   props: ["lista"],
-
-  
-}
+  methods : {
+    mostraEquipa: function(e){
+      this.$router.push('/equipas/' + e.idEquipa)
+    }
+  }
+};
 </script>
 
 <style>

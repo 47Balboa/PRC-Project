@@ -50,11 +50,13 @@ Atletas.getLista = async function(){
 
 
 Atletas.getEventosDoAtleta = async function(idAtleta){
-    var query = `select  ?idEvento ?designacao ?desporto where {
+    var query = `select  ?idEvento ?designacao ?desporto ?jogo where {
         c:${idAtleta} a c:Atleta .
         c:${idAtleta} c:participou ?evento .
         ?evento c:designacao ?designacao .
-        ?evento c:desporto ?desporto
+        ?evento c:desporto ?desporto .
+        ?game c:temEvento ?evento .
+        ?game c:designacao ?jogo .
         bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
     }` 
     var encoded = encodeURIComponent(prefixes + query)
@@ -102,13 +104,15 @@ Atletas.getMedalhasDoAtleta = async function(idAtleta){
 
 
 async function getAtletaAtomica(idAtleta){
-    var query = `select ?nome ?idade ?altura ?peso ?sexo where {
+    var query = `select ?nome ?idade ?altura ?peso ?sexo ?equipa where {
         c:${idAtleta} a c:Atleta .
         c:${idAtleta} c:nome ?nome .
         c:${idAtleta} c:sexo ?sexo .
         optional{ c:${idAtleta} c:idade ?idade . }
         optional{ c:${idAtleta} c:altura ?altura . }
         optional{ c:${idAtleta} c:peso ?peso .}
+        c:${idAtleta} c:pertence ?eq .
+        bind(strafter(str(?eq), 'jogosOlimpicos#') as ?equipa) .
     }` 
     var encoded = encodeURIComponent(prefixes + query)
 

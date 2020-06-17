@@ -12,7 +12,7 @@
         <v-card-text>
             <v-row>
               <v-col cols="2">
-                <div class="info-label">Sport</div>
+                <div class="info-label">Sport:</div>
               </v-col>
               <v-col>
                 <div class="info-content">{{ evento.info.desporto }}</div>
@@ -20,16 +20,16 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Belongs</div>
+                    <div class="info-label">Belongs:</div>
                   </v-col>
                   <v-col>
-                    <div class="info-content">{{ evento.info.jogosOlimpicos }}</div>
+                    <div class="info-content">{{ evento.info.jogo }}</div>
                   </v-col>
                 </v-row>
                 
 
                 <Atletas :lista="evento.atletas" />
-                <Podio :lista="evento.podio" />
+                <Podio :ouro="evento.podio.onomes" :prata="evento.podio.pnomes" :bronze="evento.podio.bnomes"/>
                
             </v-card-text>
 
@@ -63,17 +63,13 @@ export default {
   data: () => ({
     evento: {},
     eventoCarregado: false,
-    footer_props: {
-      "items-per-page-text": "Show",
-      "items-per-page-options": [10, 20, 50, 100, -1],
-      "items-per-page-all-text": "All"
-    }
   }),
 
   created: async function(){
     try {
       let response = await axios.get(lhost + "/eventos/" + this.idEvento);
       this.evento = response.data;
+      this.evento.info.jogo = this.evento.info.jogo.split('#')[1]
       this.evento.atletas.sort((a,b) => a.nome > b.nome ? 1 : -1);
       this.eventoCarregado = true;
     } 

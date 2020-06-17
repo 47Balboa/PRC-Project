@@ -1,34 +1,30 @@
 <template>
-  
-
-                <v-row v-if="lista.length !=0">
-                  <v-col cols="2">
-                    <div class="info-label">Athletes</div>
-                  </v-col>
-                  <v-col>
-                    <div class="info-content">
-                      <ul>
-                        <li>
-                          <span v-for="atleta in lista" :key="atleta">
-                              {{atleta.nome}}
-                        
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </v-col>
-        
-                </v-row>
-          
+  <v-row v-if="lista.length !=0">
+    <v-col cols="2">
+      <div class="info-label">Athletes:</div>
+    </v-col>
+    <v-col>
+      <div class="info-content">
+        <ul v-for="a in lista" :key="a">
+          <li @click="mostraAtleta(a)">
+            <span>{{a.atleta}}</span>
+          </li>
+        </ul>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
-  name: 'Atletas',
+  name: "Atletas",
   props: ["lista"],
-
-  
-}
+  methods : {
+    mostraAtleta: function(a){
+      this.$router.push('/atletas/' + a.idAtleta)
+    }
+  }
+};
 </script>
 
 <style>

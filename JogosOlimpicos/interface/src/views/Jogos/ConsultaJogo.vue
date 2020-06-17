@@ -6,7 +6,7 @@
 import ConsultaJogo from '@/components/Jogos/ConsultaJogo.vue'
 
 export default {
-  name: 'Consulta de um Jogo Olimpico',
+  name: 'ConsultaJogoOlimpico',
   components: {
     ConsultaJogo
   }

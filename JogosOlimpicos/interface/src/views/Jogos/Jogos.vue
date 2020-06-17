@@ -7,7 +7,7 @@
 import ListaJogos from '@/components/Jogos/ListaJogos.vue'
 
 export default {
-  name: 'Jogos Olimpicos',
+  name: 'Jogos-Olimpicos',
   components: {
     ListaJogos
   }

@@ -6,7 +6,7 @@
 import ConsultaEvento from '@/components/Eventos/ConsultaEvento.vue'
 
 export default {
-  name: 'Consulta de um Evento',
+  name: 'Consulta-Evento',
   components: {
     ConsultaEvento
   }

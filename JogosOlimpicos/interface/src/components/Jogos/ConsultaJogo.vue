@@ -12,7 +12,7 @@
         <v-card-text>
             <v-row>
               <v-col cols="2">
-                <div class="info-label">City</div>
+                <div class="info-label">City:</div>
               </v-col>
               <v-col>
                 <div class="info-content">{{ jogo.info.cidade}}</div>
@@ -20,7 +20,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Year</div>
+                    <div class="info-label">Year:</div>
                   </v-col>
                   <v-col>
                     <div class="info-content">{{ jogo.info.ano }}</div>
@@ -28,7 +28,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Season</div>
+                    <div class="info-label">Season:</div>
                   </v-col>
                   <v-col>
                     <div class="info-content">{{ jogo.info.temporada }}</div>
@@ -74,12 +74,7 @@ export default {
 
   data: () => ({
     jogo: {},
-    jogoCarregado: false,
-    footer_props: {
-      "items-per-page-text": "Show",
-      "items-per-page-options": [10, 20, 50, 100, -1],
-      "items-per-page-all-text": "All"
-    }
+    jogoCarregado: false
   }),
 
   created: async function(){
