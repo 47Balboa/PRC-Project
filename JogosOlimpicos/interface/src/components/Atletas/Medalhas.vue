@@ -1,9 +1,9 @@
 <template>
-  <v-row v-if="ouros !='' && pratas !='' && bronzes !=''">
+  <v-row v-if="ouros !='' || pratas !='' || bronzes !=''">
     <v-col cols="2">
-      <div class="info-label">Medals:</div>
+      <div class="info-label">Medals</div>
     </v-col>
-    <v-col cols="3" v-if="splitMedals(ouros).length != 0"> 
+    <v-col cols="3" v-if="ouros !='' && splitMedals(ouros).length != 0"> 
         <div class="info-content" style="background-color:gold">
             <ul v-for="medalha in splitMedals(ouros)" :key="medalha">
                 <li @click="mostraEvento(medalha)">
@@ -12,7 +12,7 @@
             </ul>
         </div>
     </v-col>
-    <v-col cols="3" v-if="splitMedals(pratas).length != 0"> 
+    <v-col cols="3" v-if="pratas !='' && splitMedals(pratas).length != 0"> 
         <div class="info-content" style="background-color:silver">
             <ul v-for="medalha in splitMedals(pratas)" :key="medalha">
                 <li @click="mostraEvento(medalha)">
@@ -21,7 +21,7 @@
             </ul>
         </div>
     </v-col>
-    <v-col cols="3" v-if="splitMedals(bronzes).length != 0"> 
+    <v-col cols="3" v-if="bronzes !='' && splitMedals(bronzes).length != 0"> 
         <div class="info-content" style="background-color:peru">
             <ul v-for="medalha in splitMedals(bronzes)" :key="medalha">
                 <li @click="mostraEvento(medalha)">

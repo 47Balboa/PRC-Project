@@ -36,23 +36,23 @@
             </v-row>
             <v-row v-if="atleta.info.altura">
                 <v-col cols="2">
-                    <div class="info-label">Height:</div>
+                    <div class="info-label">Height</div>
                 </v-col>
                 <v-col>
-                    <div class="info-content">{{ atleta.info.altura }}</div>
+                    <div class="info-content">{{ atleta.info.altura }} cm</div>
                 </v-col>
             </v-row>
             <v-row v-if="atleta.info.peso">
                 <v-col cols="2">
-                    <div class="info-label">Weight:</div>
+                    <div class="info-label">Weight </div>
                 </v-col>
                 <v-col>
-                    <div class="info-content">{{ atleta.info.peso }}</div>
+                    <div class="info-content">{{ atleta.info.peso }} Kg</div>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="2">
-                    <div class="info-label">Team:</div>
+                    <div class="info-label">Team</div>
                 </v-col>
                 <v-col style="padding:3px" >
                     <!-- ja tentei bue maneiras e nao fica alinhado fds -->
