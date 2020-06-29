@@ -29,7 +29,7 @@
                 
 
                 <Atletas :lista="evento.atletas" />
-                <Podio :ouro="evento.podio.onomes" :prata="evento.podio.pnomes" :bronze="evento.podio.bnomes"/>
+                <Podio :ouro="evento.podio.ouro" :prata="evento.podio.prata" :bronze="evento.podio.bronze"/>
                
             </v-card-text>
 

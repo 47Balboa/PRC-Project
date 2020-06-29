@@ -1,31 +1,31 @@
 <template>
-  <v-row v-if="ouros !='' || pratas !='' || bronzes !=''">
+  <v-row v-if="ouros.length >0 || pratas.length >0 || bronzes.length >0">
     <v-col cols="2">
       <div class="info-label">Medals</div>
     </v-col>
-    <v-col cols="3" v-if="ouros !='' && splitMedals(ouros).length != 0"> 
+    <v-col cols="3" v-if="ouros.length >0"> 
         <div class="info-content" style="background-color:gold">
-            <ul v-for="medalha in splitMedals(ouros)" :key="medalha">
-                <li @click="mostraEvento(medalha)">
-                    {{medalha}} [{{medalha.substring(0,10)}}]
+            <ul v-for="medalha in ouros" :key="medalha">
+                <li @click="mostraEvento(medalha.idevento)">
+                    {{medalha.evento}} [{{medalha.idevento.substring(0,10)}}]
                 </li>
             </ul>
         </div>
     </v-col>
-    <v-col cols="3" v-if="pratas !='' && splitMedals(pratas).length != 0"> 
+    <v-col cols="3" v-if="pratas.length != 0"> 
         <div class="info-content" style="background-color:silver">
-            <ul v-for="medalha in splitMedals(pratas)" :key="medalha">
-                <li @click="mostraEvento(medalha)">
-                    {{medalha}} [{{medalha.substring(0,10)}}] 
+            <ul v-for="medalha in pratas" :key="medalha">
+                <li @click="mostraEvento(medalha.idevento)">
+                    {{medalha.evento}} [{{medalha.idevento.substring(0,10)}}] 
                 </li>
             </ul>
         </div>
     </v-col>
-    <v-col cols="3" v-if="bronzes !='' && splitMedals(bronzes).length != 0"> 
+    <v-col cols="3" v-if="bronzes.length != 0"> 
         <div class="info-content" style="background-color:peru">
-            <ul v-for="medalha in splitMedals(bronzes)" :key="medalha">
-                <li @click="mostraEvento(medalha)">
-                    {{medalha}} [{{medalha.substring(0,10)}}]
+            <ul v-for="medalha in bronzes" :key="medalha">
+                <li @click="mostraEvento(medalha.idevento)">
+                    {{medalha.evento}} [{{medalha.idevento.substring(0,10)}}]
                 </li>
             </ul>
         </div>
@@ -41,11 +41,6 @@ export default {
   props: ["ouros", "pratas", "bronzes"],
 
   methods: {
-    splitMedals(str) {
-      //trazer designacoes tbm, alterar query do podio
-      var arr = str.split(';')
-      return arr
-    },
     mostraEvento: function(e){
       this.$router.push('/eventos/' + e)
     }

@@ -1,31 +1,31 @@
 <template>
-  <v-row v-if="ouro !='' && prata !='' && bronze !=''">
+  <v-row v-if="ouro.length > 0 || prata.length > 0 || bronze.length > 0">
     <v-col cols="2">
       <div class="info-label">Podium:</div>
     </v-col>
-    <v-col cols="3" v-if="splitAtletas(ouro).length != 0"> 
+    <v-col cols="3" v-if="ouro.length != 0"> 
         <div class="info-content" style="background-color:gold">
-            <ul v-for="atleta in splitAtletas(ouro)" :key="atleta">
-                <li>
-                    {{atleta}}
+            <ul v-for="atleta in ouro" :key="atleta">
+                <li @click="mostraAtleta(atleta.id)">
+                    {{atleta.nome}}
                 </li>
             </ul>
         </div>
     </v-col>
-    <v-col cols="3" v-if="splitAtletas(prata).length != 0"> 
+    <v-col cols="3" v-if="prata.length != 0"> 
         <div class="info-content" style="background-color:silver">
-            <ul v-for="atleta in splitAtletas(prata)" :key="atleta">
-                <li>
-                    {{atleta}}
+            <ul v-for="atleta in prata" :key="atleta">
+                <li @click="mostraAtleta(atleta.id)">
+                    {{atleta.nome}}
                 </li>
             </ul>
         </div>
     </v-col>
-    <v-col cols="3" v-if="splitAtletas(bronze).length != 0"> 
+    <v-col cols="3" v-if="bronze.length != 0"> 
         <div class="info-content" style="background-color:peru">
-            <ul v-for="atleta in splitAtletas(bronze)" :key="atleta">
-                <li>
-                    {{atleta}}
+            <ul v-for="atleta in bronze" :key="atleta">
+                <li @click="mostraAtleta(atleta.id)">
+                    {{atleta.nome}}
                 </li>
             </ul>
         </div>
@@ -38,12 +38,8 @@ export default {
   name: "Podio",
   props: ["ouro","prata","bronze"],
   methods: {
-    splitAtletas(str) {
-      var arr = str.split(';')
-      return arr
-    },
     mostraAtleta: function(a){
-      this.$router.push('/atletas/' + a.idAtleta)
+      this.$router.push('/atletas/' + a)
     }
   }
 };

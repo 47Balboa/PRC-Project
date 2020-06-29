@@ -62,14 +62,18 @@ Equipas.getEventosDaEquipa = async function(idEquipa){
     }
 }
 
-Equipas.getAtletasDaEquipa = async function(idEquipa){
-    var query = `select ?atleta ?idAtleta ?nome where{
+Equipas.getAtletasDaEquipaPorDesporto = async function(idEquipa){
+    var query = `select ?desporto 
+    (group_concat(distinct ?idAtleta; separator = ';') as ?ids)
+    (group_concat(distinct ?nome; separator = ';') as ?nomes) where{
         c:${idEquipa} a c:Equipa.
         c:${idEquipa} c:temAtleta ?atleta.
-    	?atleta c:nome ?nome.   
-        
+    	?atleta c:nome ?nome. 
+        ?atleta c:participou ?evento .
+        ?evento c:desporto ?desporto .
         bind(strafter(str(?atleta), 'jogosOlimpicos#') as ?idAtleta) .
-    }order by ?atleta ` 
+    }
+group by ?desporto ` 
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
@@ -81,7 +85,9 @@ Equipas.getAtletasDaEquipa = async function(idEquipa){
     } 
 }
 
-Equipas.getJogosDaEquipa = async function(idEquipa){ // NAo consegui fazer o distinct (erro de memoria)
+
+
+Equipas.getJogosDaEquipa = async function(idEquipa){
     var query = `select distinct ?jogo ?idJogo where{
         c:${idEquipa} a c:Equipa.
     	c:${idEquipa} c:temAtleta ?atleta.
@@ -125,7 +131,7 @@ Equipas.getEquipa = async function(idEquipa){
     try{
         var atomica = await getEquipaAtomica(idEquipa)
         var eventos = await Equipas.getEventosDaEquipa(idEquipa)
-        var atletas = await Equipas.getAtletasDaEquipa(idEquipa)
+        var atletas = await Equipas.getAtletasDaEquipaPorDesporto(idEquipa)
         var jogos  =  await Equipas.getJogosDaEquipa(idEquipa)
         
         var equipa = {

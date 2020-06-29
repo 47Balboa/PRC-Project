@@ -70,27 +70,13 @@ Atletas.getEventosDoAtleta = async function(idAtleta){
     } 
 }
 
-Atletas.getMedalhasDoAtleta = async function(idAtleta){
-    var query = `select (group_concat(distinct ?ouro; separator = ';') as ?medalhasOuro) 
-    (group_concat(distinct ?prata; separator = ';') as ?medalhasPrata)
-    (group_concat(distinct ?bronze; separator = ';') as ?medalhasBronze) where{
+async function getMedalhasOuro(idAtleta){
+    var query = `select ?idevento ?evento where {
         c:${idAtleta} a c:Atleta .
-        optional{ 
-            c:${idAtleta} c:ganhouMedalhaOuro ?o .
-            ?o c:designacao ?douro.
-         }
-        optional{ 
-            c:${idAtleta} c:ganhouMedalhaPrata ?p .
-            ?p c:designacao ?dprata.
-         }
-        optional{ 
-            c:${idAtleta} c:ganhouMedalhaBronze ?b . 
-            ?b c:designacao ?dbronze.
-        }
-        bind(strafter(str(?o), 'jogosOlimpicos#') as ?ouro) .
-        bind(strafter(str(?p), 'jogosOlimpicos#') as ?prata).
-        bind(strafter(str(?b), 'jogosOlimpicos#') as ?bronze).  
-    } ` 
+        c:${idAtleta} c:ganhouMedalhaOuro ?o .
+        ?o c:designacao ?evento.
+        bind(strafter(str(?o), 'jogosOlimpicos#') as ?idevento) .
+    }` 
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
@@ -99,7 +85,61 @@ Atletas.getMedalhasDoAtleta = async function(idAtleta){
     }
     catch(e){
         throw(e)
+    } 
+}
+
+async function getMedalhasPrata(idAtleta){
+    var query = `select ?idevento ?evento where {
+        c:${idAtleta} a c:Atleta .
+        c:${idAtleta} c:ganhouMedalhaPrata ?o .
+        ?o c:designacao ?evento.
+        bind(strafter(str(?o), 'jogosOlimpicos#') as ?idevento) .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
     }
+    catch(e){
+        throw(e)
+    } 
+}
+
+async function getMedalhasBronze(idAtleta){
+    var query = `select ?idevento ?evento where {
+        c:${idAtleta} a c:Atleta .
+        c:${idAtleta} c:ganhouMedalhaBronze ?o .
+        ?o c:designacao ?evento.
+        bind(strafter(str(?o), 'jogosOlimpicos#') as ?idevento) .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+Atletas.getMedalhasDoAtleta = async function(idAtleta){
+    try{
+        var ouro = await getMedalhasOuro(idAtleta)
+        var prata = await getMedalhasPrata(idAtleta)
+        var bronze = await getMedalhasBronze(idAtleta)
+        var medalhas = {
+          //nome do campo: variável
+            ouro : ouro,
+            prata: prata,
+            bronze: bronze
+        }
+        return medalhas
+    }
+    catch(e){
+        throw(e)
+    } 
 }
 
 
@@ -136,7 +176,7 @@ Atletas.getAtleta = async function(idAtleta){
           //nome do campo: variável
             info : atomica[0],
             eventos: eventos,
-            medalhas: medalhas[0]
+            medalhas: medalhas
         }
         return atleta
     }

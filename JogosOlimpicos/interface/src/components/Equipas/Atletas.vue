@@ -1,15 +1,25 @@
 <template>
   <v-row v-if="lista.length !=0">
     <v-col cols="2">
-      <div class="info-label"> Athletes:</div>
+      <div class="info-label">Athletes:</div>
     </v-col>
-    <v-col> 
-      <div class="info-content">
-        <ul v-for="atleta in lista" :key="atleta">
-          <li @click="mostraAtleta(atleta)">
-            {{atleta.nome}}
-          </li>
-        </ul>
+    <v-col>
+      <div>
+        <div class="text-center d-flex pb-4">
+          <v-btn @click="all">all</v-btn>
+          <v-btn @click="none">none</v-btn>
+        </div>
+
+        <v-expansion-panels v-model="panel" multiple>
+          <v-expansion-panel v-for="(item,d) in getSports(desportos)" :key="d">
+            <v-expansion-panel-header><b>{{ item }}</b></v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <ul v-for="atleta in splitAtletas(item)" :key="atleta">
+                <li @click="mostraAtleta(atleta.id)">{{atleta.nome}}</li>
+              </ul>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </div>
     </v-col>
   </v-row>
@@ -20,12 +30,56 @@ export default {
   name: "Atletas",
   props: ["lista"],
 
-  methods : {
-    mostraAtleta: function(a){
-      this.$router.push('/atletas/' + a.idAtleta)
+  data() {
+    return {
+      panel: [],
+      items: 5,
+      desportos: this.lista
+    };
+  },
+
+  methods: {
+    mostraAtleta: function(a) {
+      this.$router.push("/atletas/" + a);
+    },
+    splitAtletas: function(desp){
+      var atls = []
+      var idString = ""
+      var nomeString = ""
+      this.lista.forEach(l => {
+        if (l.desporto === desp){
+          idString = l.ids
+          nomeString = l.nomes
+        }
+      });
+      nomeString = nomeString.split(';')
+      idString = idString.split(';')
+      for (let i = 0; i < nomeString.length; i++) {
+        var at = {
+          id : idString[i],
+          nome : nomeString[i] 
+        }
+        atls.push(at)
+      }
+      console.log(atls)
+      return atls
+    },
+    all() {
+      this.panel = [...this.lista.keys()].map((k, i) => i);
+    },
+    // Reset the panel
+    none() {
+      this.panel = [];
+    },
+    getSports: function(list) {
+      var dps = [];
+      list.forEach(element => {
+        dps.push(element.desporto);
+      });
+      console.log(dps);
+      return dps;
     }
   }
-  
 };
 </script>
 

@@ -61,7 +61,7 @@
             </v-row>
                 
 
-            <Medalhas :ouros="atleta.medalhas.medalhasOuro" :pratas="atleta.medalhas.medalhasPrata" :bronzes="atleta.medalhas.medalhasBronze"/>
+            <Medalhas :ouros="atleta.medalhas.ouro" :pratas="atleta.medalhas.prata" :bronzes="atleta.medalhas.bronze"/>
             <Eventos :lista="atleta.eventos" /> 
                
             </v-card-text>
@@ -104,6 +104,7 @@ export default {
       this.atleta = response.data;
       this.equipa = this.atleta.info.equipa.toLowerCase()
       this.atletaCarregado = true;
+      console.log(this.atleta.medalhas.ouro)
     } 
     catch (e) {
       return e;

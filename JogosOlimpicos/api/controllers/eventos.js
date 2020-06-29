@@ -65,27 +65,14 @@ Eventos.getAtletasDoEvento = async function(idEvento){
     } 
 }
 
-Eventos.getPodioDoEvento = async function(idEvento){
-    var query = `select distinct ?idEvento ?designacao 
-    (group_concat(distinct ?onome; separator = ';') as ?onomes) 
-    (group_concat(distinct ?pnome; separator = ';') as ?pnomes)
-    (group_concat(distinct ?bnome; separator = ';') as ?bnomes) where{
+
+async function getPrimeiroLugar(idEvento){
+    var query = `select ?id ?nome where {
         c:${idEvento} a c:Evento .
-        c:${idEvento} c:designacao ?designacao .
-        optional{ 
-            c:${idEvento} c:primeiroLugar ?ouro .
-            ?ouro c:nome ?onome.
-         }
-        optional{ 
-            c:${idEvento} c:segundoLugar ?prata .
-            ?prata c:nome ?pnome.
-         }
-        optional{ 
-            c:${idEvento} c:terceiroLugar ?bronze .
-            ?bronze c:nome ?bnome.
-        }
-       
-    } group by ?idEvento ?designacao ` 
+        c:${idEvento} c:primeiroLugar ?atl .
+        ?atl c:nome ?nome.
+        bind(strafter(str(?atl), 'jogosOlimpicos#') as ?id) .
+    }` 
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
@@ -94,7 +81,61 @@ Eventos.getPodioDoEvento = async function(idEvento){
     }
     catch(e){
         throw(e)
+    } 
+}
+
+async function getSegundoLugar(idEvento){
+    var query = `select ?id ?nome where {
+        c:${idEvento} a c:Evento .
+        c:${idEvento} c:segundoLugar ?atl .
+        ?atl c:nome ?nome.
+        bind(strafter(str(?atl), 'jogosOlimpicos#') as ?id) .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
     }
+    catch(e){
+        throw(e)
+    } 
+}
+
+async function getTerceiroLugar(idEvento){
+    var query = `select ?id ?nome where {
+        c:${idEvento} a c:Evento .
+        c:${idEvento} c:terceiroLugar ?atl .
+        ?atl c:nome ?nome.
+        bind(strafter(str(?atl), 'jogosOlimpicos#') as ?id) .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+Eventos.getPodioDoEvento = async function(idEvento){
+    try{
+        var primeiros = await getPrimeiroLugar(idEvento)
+        var segundos = await getSegundoLugar(idEvento)
+        var terceiros = await getTerceiroLugar(idEvento)
+        var podio = {
+          //nome do campo: variável
+            ouro : primeiros,
+            prata: segundos,
+            bronze: terceiros
+        }
+        return podio
+    }
+    catch(e){
+        throw(e)
+    } 
 }
 
 
@@ -128,7 +169,7 @@ Eventos.getEvento = async function(idEvento){
           //nome do campo: variável
             info : atomica[0],
             atletas: atletas,
-            podio: podio[0]
+            podio: podio
         }
         return evento
     }
