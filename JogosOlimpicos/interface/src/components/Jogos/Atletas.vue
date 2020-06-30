@@ -4,12 +4,22 @@
       <div class="info-label">Athletes:</div>
     </v-col>
     <v-col>
-      <div class="info-content">
-        <ul v-for="atleta in lista" :key="atleta">
-          <li @click="mostraAtleta(atleta)">
-            {{atleta.nome}}
-          </li>
-        </ul>
+      <div>
+        <div class="text-center d-flex pb-4">
+          <v-btn color="blue" @click="all">all</v-btn>
+          <v-btn color="blue" @click="none">none</v-btn>
+        </div>
+
+        <v-expansion-panels v-model="panel" multiple>
+          <v-expansion-panel v-for="(item,e) in getTeams(lista)" :key="e">
+            <v-expansion-panel-header><b @click="mostraEquipa(item.id)">{{ item.designacao }}</b></v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <ul v-for="atleta in splitAtletas(item.designacao)" :key="atleta">
+                <li @click="mostraAtleta(atleta.id)">{{atleta.nome}}</li>
+              </ul>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </div>
     </v-col>
   </v-row>
@@ -19,9 +29,60 @@
 export default {
   name: "Atletas",
   props: ["lista"],
+
+  data() {
+    return {
+      panel: []
+    };
+  },
+
   methods : {
     mostraAtleta: function(a){
-      this.$router.push('/atletas/' + a.idAtleta)
+      this.$router.push('/atletas/' + a)
+    },
+    mostraEquipa: function(e){
+      this.$router.push('/equipas/' + e)
+    },
+    splitAtletas: function(eq){
+      var atls = []
+      var idString = ""
+      var nomeString = ""
+      this.lista.forEach(l => {
+        if (l.equipa === eq){
+          idString = l.ids
+          nomeString = l.nomes
+        }
+      });
+      nomeString = nomeString.split(';')
+      idString = idString.split(';')
+      for (let i = 0; i < nomeString.length; i++) {
+        var at = {
+          id : idString[i],
+          nome : nomeString[i] 
+        }
+        atls.push(at)
+      }
+      return atls
+    },
+
+    all() {
+      this.panel = [...this.lista.keys()].map((k, i) => i);
+    },
+    // Reset the panel
+    none() {
+      this.panel = [];
+    },
+
+    getTeams: function(list) {
+      var eqs = [];
+      list.forEach(element => {
+        var e = {
+          id: element.idEquipa,
+          designacao: element.equipa
+        }
+        eqs.push(e);
+      });
+      return eqs;
     }
   }
 };

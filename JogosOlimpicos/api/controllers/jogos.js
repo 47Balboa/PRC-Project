@@ -66,6 +66,54 @@ Jogos.getEventosDoJogo = async function(idJogo){
     } 
 }
 
+Jogos.getEventosDoJogoPorDesporto = async function(idJogo){
+    var query = `select ?desporto 
+    (group_concat(distinct ?idEvento; separator = ';') as ?ids) 
+    (group_concat(distinct ?designacao; separator = ';') as ?designacoes) where{
+        c:${idJogo} a c:JogoOlimpico.
+        c:${idJogo} c:temEvento ?evento.
+        ?evento c:designacao ?designacao.
+        ?evento c:desporto ?desporto .
+    bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
+    }
+    group by ?desporto
+    order by ?desporto` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+Jogos.getAtletasDoJogoPorEquipa = async function(idJogo){
+    var query = `select ?equipa ?idEquipa (group_concat(distinct ?idAtleta; separator = ';') as ?ids) (group_concat(distinct ?nome; separator = ';') as ?nomes) where{
+        c:${idJogo} a c:JogoOlimpico.
+        c:${idJogo} c:temEvento ?evento.
+        ?atleta c:participou ?evento.
+        ?atleta c:pertence ?eq .
+        ?atleta c:nome ?nome .
+        ?eq c:designacao ?equipa .
+    bind(strafter(str(?atleta), 'jogosOlimpicos#') as ?idAtleta) .
+    bind(strafter(str(?eq), 'jogosOlimpicos#') as ?idEquipa) .
+    }
+    group by ?equipa ?idEquipa
+    order by ?equipa` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+
 
 Jogos.getAtletasDoJogo = async function(idJogo){
     var query = `select distinct ?atleta ?idAtleta ?nome where{
@@ -135,8 +183,8 @@ async function getJogoAtomica(idJogo){
 Jogos.getJogo = async function(idJogo){
     try{
         var atomica = await getJogoAtomica(idJogo)
-        var eventos = await Jogos.getEventosDoJogo(idJogo)
-        var atletas = await Jogos.getAtletasDoJogo(idJogo)
+        var eventos = await Jogos.getEventosDoJogoPorDesporto(idJogo)
+        var atletas = await Jogos.getAtletasDoJogoPorEquipa(idJogo)
         var equipas = await Jogos.getEquipasDoJogo(idJogo)
         var atleta = {
           //nome do campo: variável

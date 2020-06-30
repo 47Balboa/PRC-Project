@@ -20,7 +20,7 @@
       >
           <template v-slot:no-data>
             <v-alert :value="true" color="warning" icon="warning">
-              Ainda não foi possível apresentar uma lista das Equipas...
+              Loading the list of Teams ...
             </v-alert>
           </template>
 
@@ -77,7 +77,6 @@ export default {
 
   methods: {
     mostraEquipa: function(item){
-      alert('Clicked Team: ' + JSON.stringify(item))
       this.$router.push("/equipas/" + item.idEquipa);
     }
   }

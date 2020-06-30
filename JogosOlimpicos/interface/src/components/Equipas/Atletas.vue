@@ -6,12 +6,12 @@
     <v-col>
       <div>
         <div class="text-center d-flex pb-4">
-          <v-btn @click="all">all</v-btn>
-          <v-btn @click="none">none</v-btn>
+          <v-btn color="blue" @click="all">all</v-btn>
+          <v-btn color="blue" @click="none">none</v-btn>
         </div>
 
         <v-expansion-panels v-model="panel" multiple>
-          <v-expansion-panel v-for="(item,d) in getSports(desportos)" :key="d">
+          <v-expansion-panel v-for="(item,d) in getSports(lista)" :key="d">
             <v-expansion-panel-header><b>{{ item }}</b></v-expansion-panel-header>
             <v-expansion-panel-content>
               <ul v-for="atleta in splitAtletas(item)" :key="atleta">
@@ -32,9 +32,7 @@ export default {
 
   data() {
     return {
-      panel: [],
-      items: 5,
-      desportos: this.lista
+      panel: []
     };
   },
 
@@ -42,6 +40,7 @@ export default {
     mostraAtleta: function(a) {
       this.$router.push("/atletas/" + a);
     },
+
     splitAtletas: function(desp){
       var atls = []
       var idString = ""
@@ -61,9 +60,9 @@ export default {
         }
         atls.push(at)
       }
-      console.log(atls)
       return atls
     },
+
     all() {
       this.panel = [...this.lista.keys()].map((k, i) => i);
     },
@@ -71,12 +70,12 @@ export default {
     none() {
       this.panel = [];
     },
+
     getSports: function(list) {
       var dps = [];
       list.forEach(element => {
         dps.push(element.desporto);
       });
-      console.log(dps);
       return dps;
     }
   }

@@ -20,7 +20,7 @@
       >
           <template v-slot:no-data>
             <v-alert :value="true" color="warning" icon="warning">
-              Ainda não foi possível apresentar uma lista dos Jogos Olimpicos...
+             Loading list of Olympic Games ...
             </v-alert>
           </template>
 

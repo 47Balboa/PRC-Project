@@ -1,5 +1,6 @@
 var Atletas = module.exports
 const axios = require('axios')
+const countrynames = require('countrynames')
 
 function myNormalize(r) {
     return r.results.bindings.map(o =>{
@@ -144,7 +145,7 @@ Atletas.getMedalhasDoAtleta = async function(idAtleta){
 
 
 async function getAtletaAtomica(idAtleta){
-    var query = `select ?nome ?idade ?altura ?peso ?sexo ?equipa where {
+    var query = `select ?nome ?idade ?altura ?peso ?sexo ?idEquipa ?equipa where {
         c:${idAtleta} a c:Atleta .
         c:${idAtleta} c:nome ?nome .
         c:${idAtleta} c:sexo ?sexo .
@@ -152,7 +153,8 @@ async function getAtletaAtomica(idAtleta){
         optional{ c:${idAtleta} c:altura ?altura . }
         optional{ c:${idAtleta} c:peso ?peso .}
         c:${idAtleta} c:pertence ?eq .
-        bind(strafter(str(?eq), 'jogosOlimpicos#') as ?equipa) .
+        ?eq c:designacao ?equipa .
+        bind(strafter(str(?eq), 'jogosOlimpicos#') as ?idEquipa) .
     }` 
     var encoded = encodeURIComponent(prefixes + query)
 
@@ -172,8 +174,8 @@ Atletas.getAtleta = async function(idAtleta){
         var atomica = await getAtletaAtomica(idAtleta)
         var eventos = await Atletas.getEventosDoAtleta(idAtleta)
         var medalhas = await Atletas.getMedalhasDoAtleta(idAtleta)
+        atomica[0].flagCode = countrynames.getCode(atomica[0].equipa)
         var atleta = {
-          //nome do campo: variável
             info : atomica[0],
             eventos: eventos,
             medalhas: medalhas

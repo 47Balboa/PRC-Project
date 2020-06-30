@@ -38,7 +38,6 @@
                
 
                 <Eventos :lista="jogo.eventos" />
-                <Equipas :lista="jogo.equipas" />
                 <Atletas :lista="jogo.atletas" />
                 
             </v-card-text>
@@ -56,7 +55,6 @@ import axios from 'axios'
 const lhost = require("@/config/global").host;
 
 import Eventos from "@/components/Jogos/Eventos.vue"
-import Equipas from "@/components/Jogos/Equipas.vue"
 import Atletas from "@/components/Jogos/Atletas.vue"
 
 
@@ -65,9 +63,7 @@ export default {
 
   components: {
       Eventos,
-      Equipas,
       Atletas
-      
   },
 
   props: ["idJogo"],

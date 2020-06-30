@@ -40,6 +40,12 @@ Vue.use(VueRouter)
     component: () => import( '../views/Equipas/ConsultaEquipa.vue')
   },
   {
+    path: '/atletas',
+    name: 'Página dos Atletas',
+    component: () => import( '../views/Atletas/Atletas.vue')
+  
+  },
+  {
     path: '/atletas/:id',
     name: 'Consulta Atleta',
     component: () => import( '../views/Atletas/ConsultaAtleta.vue')

@@ -6,7 +6,7 @@
 
       <v-card v-else>
         <v-card-title class="indigo darken-4 white--text" dark>
-            <span class="headline">Team: "{{ equipa.info.designacao }}" ({{idEquipa}}) <country-flag style="float:right; margin-left:15px" :country="idEquipa.toLowerCase()" size="big"/></span>
+            <span class="headline">Team: "{{ equipa.info.designacao }}" ({{idEquipa}}) <country-flag style="float:right; margin-left:15px" :country="equipa.info.flagCode" size="big"/></span>
         </v-card-title>
 
         <v-card-text>
@@ -18,15 +18,27 @@
                 <div class="info-content">{{ equipa.info.designacao }}</div>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col cols="2">
+                <div class="info-label">Medal Count:</div>
+              </v-col>
+              <v-col cols="1" v-if="equipa.contagemMedalhas.ouro != 0">
+                <div style="background-color:gold" class="info-content mdi mdi-medal-outline">{{ equipa.contagemMedalhas.ouro }}</div>
+              </v-col>
+              <v-col cols="1" v-if="equipa.contagemMedalhas.prata != 0">
+                <div style="background-color:silver" class="info-content mdi mdi-medal-outline">{{ equipa.contagemMedalhas.prata }}</div>
+              </v-col>
+              <v-col cols="1" v-if="equipa.contagemMedalhas.bronze != 0">
+                <div style="background-color:peru" class="info-content mdi mdi-medal-outline">{{ equipa.contagemMedalhas.bronze }}</div>
+              </v-col>
+            </v-row>
 
             <Jogos :lista="equipa.jogos" />
             <Atletas :lista="equipa.atletas" />
             <!-- em vez de por tds os eventos que são bues pomos tipo um top10 dos desportos em que a 
-            equipa tem mais participações
-            
-            por seque tbm uma contagem das medalhas totais da equipa-->
+            equipa tem mais participações -->
 
-               
+                         
             </v-card-text>
 
         <v-card-actions>

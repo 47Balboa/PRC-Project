@@ -1,7 +1,7 @@
 <template>
   <v-card class="ma-2">
     <v-card-title class="indigo lighten-1" dark>
-       List of Events in the DB
+      List of Athletes in the DB
       <v-spacer></v-spacer>
       <v-text-field
         v-model="filtrar"
@@ -13,22 +13,22 @@
     </v-card-title>
     <v-card-text>
       <v-data-table
-        :headers="heventos"
-        :items="eventos"
+        :headers="hatletas"
+        :items="atletas"
         :footer-props="footer_props"
         :search="filtrar"
       >
           <template v-slot:no-data>
             <v-alert :value="true" color="warning" icon="warning">
-              Loading the list of Events ...
+              Loading the list of Athletes ...
             </v-alert>
           </template>
 
           <template v-slot:item.ops="{ item }">
             <v-icon
-              @click="mostraEvento(item)"
+              @click="mostraAtleta(item)"
             >
-              {{ verEvento }} 
+              {{ verAtleta }} 
             </v-icon>
            </template>
 
@@ -44,32 +44,36 @@ const lhost = require("@/config/global").host;
 import { mdiEyeOutline } from '@mdi/js';
 
 export default {
-  name: 'ListaEventos',
+  name: 'ListaAtletas',
 
   data: () => ({
-    heventos: [
-      {text: "Designation", sortable: true, value: 'designacao', class: 'subtitle-1'},
-      {text: "Sport", sortable: true, value: 'desporto', class: 'subtitle-1'},
-      {text: "Belongs", sortable: true, value: 'jogosOlimpicos', class: 'subtitle-1'},
+    hatletas: [
+      {text: "ID", sortable: true, value: 'idAtleta', class: 'subtitle-1'},
+      {text: "Name", sortable: true, value: 'nome', class: 'subtitle-1'},
+      {text: "Age", sortable: true, value: 'idade', class: 'subtitle-1'},
+      {text: "Height", sortable: true, value: 'altura', class: 'subtitle-1'},
+      {text: "Weight", sortable: true, value: 'peso', class: 'subtitle-1'},
+      {text: "Gender", sortable: true, value: 'sexo', class: 'subtitle-1'},
+      {text: "Team", sortable: true, value: 'equipa', class: 'subtitle-1'},
       {text: "Operations", value: 'ops', class: 'subtitle-1'}
     ],
     // o v-data-table ja vem com os footer-props implementados; aqui estamos a redefini-los de acordo com o que queremos
-    // para mostrar todos os eventos colocamos -1 na lista, que corresponde a todos e dizemos o nome para esse campo : "Todos"
+    // para mostrar todos os equipas colocamos -1 na lista, que corresponde a todos e dizemos o nome para esse campo : "Todos"
     footer_props: {
       "items-per-page-text": "Show",
       "items-per-page-options": [10, 20, 50, 100, -1],
       "items-per-page-all-text": "All"
     }, 
 
-    eventos: [],
+    atletas: [],
     filtrar: "",
-    verEvento: mdiEyeOutline  // corresponde ao icon
+    verAtleta: mdiEyeOutline  // corresponde ao icon
   }),
 
   created: async function(){
     try {
-      let response = await axios.get(lhost + "/eventos");
-      this.eventos = response.data
+      let response = await axios.get(lhost + "/atletas");
+      this.atletas = response.data
     } 
     catch (e) {
       return e;
@@ -77,9 +81,8 @@ export default {
   },
 
   methods: {
-    mostraEvento: function(item){
-      alert('Clicked Event: ' + JSON.stringify(item))
-      this.$router.push("/eventos/" + item.idEvento);
+    mostraAtleta: function(item){
+      this.$router.push("/atletas/" + item.idAtleta);
     }
   }
   

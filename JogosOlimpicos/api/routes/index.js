@@ -68,19 +68,19 @@ router.get('/jogos', function(req, res, next) {
 });
 
 router.get('/jogos/:id/eventos', function(req, res, next) {
-  Jogos.getEventosDoJogo(req.params.id)
+  Jogos.getEventosDoJogoPorDesporto(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).send(`Erro na listagem dos eventos do Jogo: ${e}`))
 });
 
 
 router.get('/jogos/:id/atletas', function(req, res, next) {
-  Jogos.getAtletasDoJogo(req.params.id)
+  Jogos.getAtletasDoJogoPorEquipa(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).send(`Erro na listagem dos atletas do Jogo: ${e}`))
 });
 
-
+///NAO VAI SER USADA
 router.get('/jogos/:id/equipas', function(req, res, next) {
   Jogos.getEquipasDoJogo(req.params.id)
     .then(dados => res.jsonp(dados))
@@ -108,7 +108,7 @@ router.get('/equipas/:id/eventos', function(req, res, next) {
 });
 
 router.get('/equipas/:id/atletas', function(req, res, next) {
-  Equipas.getAtletasDaEquipa(req.params.id)
+  Equipas.getAtletasDaEquipaPorDesporto(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).send(`Erro na listagem dos atletas da Equipa: ${e}`))
 });

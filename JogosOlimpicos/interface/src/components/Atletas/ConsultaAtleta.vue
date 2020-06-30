@@ -54,9 +54,11 @@
                 <v-col cols="2">
                     <div class="info-label">Team</div>
                 </v-col>
-                <v-col style="padding:3px" >
-                    <!-- ja tentei bue maneiras e nao fica alinhado fds -->
-                    <div class="label"> <country-flag :country="this.equipa" /> {{ atleta.info.equipa }}</div>
+                <v-col cols="1">
+                    <country-flag @click="mostraEquipa(atleta.info.idEquipa)" style="margin-top:-8px" :country="atleta.info.flagCode" /> 
+                </v-col>
+                <v-col cols="2">
+                    <div style="margin-top:5px;margin-left:-60px" @click="mostraEquipa(atleta.info.idEquipa)" class="content">{{ atleta.info.equipa }}</div> 
                 </v-col>
             </v-row>
                 
@@ -95,16 +97,14 @@ export default {
 
   data: () => ({
     atleta: {},
-    atletaCarregado: false,
+    atletaCarregado: false
   }),
 
   created: async function(){
     try {
       let response = await axios.get(lhost + "/atletas/" + this.idAtleta);
       this.atleta = response.data;
-      this.equipa = this.atleta.info.equipa.toLowerCase()
       this.atletaCarregado = true;
-      console.log(this.atleta.medalhas.ouro)
     } 
     catch (e) {
       return e;
@@ -112,6 +112,9 @@ export default {
   },
 
   methods: {
+    mostraEquipa: function(e) {
+      this.$router.push("/equipas/" + e);
+    },
   }
   
 }

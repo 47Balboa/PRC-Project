@@ -1,5 +1,6 @@
 var Equipas = module.exports
 const axios = require('axios')
+const countrynames = require('countrynames')
 
 function myNormalize(r) {
     return r.results.bindings.map(o =>{
@@ -73,7 +74,8 @@ Equipas.getAtletasDaEquipaPorDesporto = async function(idEquipa){
         ?evento c:desporto ?desporto .
         bind(strafter(str(?atleta), 'jogosOlimpicos#') as ?idAtleta) .
     }
-group by ?desporto ` 
+    group by ?desporto 
+    order by ?desporto` 
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
@@ -85,6 +87,56 @@ group by ?desporto `
     } 
 }
 
+async function getContagemOuros(idEquipa){
+    var query = `select (count(distinct ?ev) as ?numMedalhas) where{
+        c:${idEquipa} a c:Equipa.
+        c:${idEquipa} c:temAtleta ?atleta.
+        ?atleta c:ganhouMedalhaOuro ?ev .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+async function getContagemPratas(idEquipa){
+    var query = `select (count(distinct ?ev) as ?numMedalhas) where{
+        c:${idEquipa} a c:Equipa.
+        c:${idEquipa} c:temAtleta ?atleta.
+        ?atleta c:ganhouMedalhaPrata ?ev .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+async function getContagemBronzes(idEquipa){
+    var query = `select (count(distinct ?ev) as ?numMedalhas) where{
+        c:${idEquipa} a c:Equipa.
+        c:${idEquipa} c:temAtleta ?atleta.
+        ?atleta c:ganhouMedalhaBronze ?ev .
+    }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
 
 
 Equipas.getJogosDaEquipa = async function(idEquipa){
@@ -133,13 +185,22 @@ Equipas.getEquipa = async function(idEquipa){
         var eventos = await Equipas.getEventosDaEquipa(idEquipa)
         var atletas = await Equipas.getAtletasDaEquipaPorDesporto(idEquipa)
         var jogos  =  await Equipas.getJogosDaEquipa(idEquipa)
+        var ouros = await getContagemOuros(idEquipa)
+        var pratas = await getContagemPratas(idEquipa)
+        var bronzes = await getContagemBronzes(idEquipa)
         
+        atomica[0].flagCode = countrynames.getCode(atomica[0].designacao)
         var equipa = {
           //nome do campo: variável
             info : atomica[0],
             eventos: eventos,
             atletas: atletas,
-            jogos: jogos
+            jogos: jogos,
+            contagemMedalhas: {
+                ouro: ouros[0].numMedalhas,
+                prata: pratas[0].numMedalhas,
+                bronze: bronzes[0].numMedalhas
+            }
         }
         return equipa
     }
