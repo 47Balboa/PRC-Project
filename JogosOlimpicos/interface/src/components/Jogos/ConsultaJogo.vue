@@ -36,7 +36,7 @@
                 </v-row>
 
                
-
+                <TabelaMedalhas :lista="contagem" />
                 <Eventos :lista="jogo.eventos" />
                 <Atletas :lista="jogo.atletas" />
                 
@@ -56,6 +56,7 @@ const lhost = require("@/config/global").host;
 
 import Eventos from "@/components/Jogos/Eventos.vue"
 import Atletas from "@/components/Jogos/Atletas.vue"
+import TabelaMedalhas from "@/components/Jogos/TabelaMedalhas.vue"
 
 
 export default {
@@ -63,21 +64,27 @@ export default {
 
   components: {
       Eventos,
-      Atletas
+      Atletas,
+      TabelaMedalhas
   },
 
   props: ["idJogo"],
 
   data: () => ({
     jogo: {},
-    jogoCarregado: false
+    jogoCarregado: false,
+    contagem: {}
   }),
+  
 
   created: async function(){
     try {
       let response = await axios.get(lhost + "/jogos/" + this.idJogo);
+      let response2 = await axios.get(lhost + "/jogos/" + this.idJogo + "/contagem")
       this.jogo = response.data;
       this.jogo.atletas.sort((a,b) => a.nome > b.nome ? 1 : -1);
+      this.contagem = response2.data;
+      console.log(this.contagem)
       this.jogoCarregado = true;
     } 
     catch (e) {

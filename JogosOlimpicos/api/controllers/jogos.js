@@ -200,3 +200,142 @@ Jogos.getJogo = async function(idJogo){
         throw(e)
     } 
 }
+
+
+async function getContagemOurosDoJogoPorEquipa(idJogo){
+    var query = `select ?idEquipa ?equipa (count(distinct ?idEvento) as ?numOuros) where{
+        c:${idJogo} a c:JogoOlimpico.
+        c:${idJogo} c:temEvento ?evento.
+        ?atleta c:ganhouMedalhaOuro ?evento.
+        ?atleta c:pertence ?eq .
+        ?eq c:designacao ?equipa .
+        bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
+        bind(strafter(str(?eq), 'jogosOlimpicos#') as ?idEquipa) .
+    }
+    group by ?idEquipa ?equipa
+    order by DESC(?numOuros)` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+async function getContagemPratasDoJogoPorEquipa(idJogo){
+    var query = `select ?idEquipa ?equipa (count(distinct ?idEvento) as ?numPratas) where{
+        c:${idJogo} a c:JogoOlimpico.
+        c:${idJogo} c:temEvento ?evento.
+        ?atleta c:ganhouMedalhaPrata ?evento.
+        ?atleta c:pertence ?eq .
+        ?eq c:designacao ?equipa .
+        bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
+        bind(strafter(str(?eq), 'jogosOlimpicos#') as ?idEquipa) .
+    }
+    group by ?idEquipa ?equipa
+    order by DESC(?numPratas)` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+
+async function getContagemBronzesDoJogoPorEquipa(idJogo){
+    var query = `select ?idEquipa ?equipa (count(distinct ?idEvento) as ?numBronzes) where{
+        c:${idJogo} a c:JogoOlimpico.
+        c:${idJogo} c:temEvento ?evento.
+        ?atleta c:ganhouMedalhaBronze ?evento.
+        ?atleta c:pertence ?eq .
+        ?eq c:designacao ?equipa .
+        bind(strafter(str(?evento), 'jogosOlimpicos#') as ?idEvento) .
+        bind(strafter(str(?eq), 'jogosOlimpicos#') as ?idEquipa) .
+    }
+    group by ?idEquipa ?equipa
+    order by DESC(?numBronzes)` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+function group(os, ps, bs){
+    ret = {}
+    os.forEach(element => {
+        count = {
+            designacao: element.equipa,
+            ouros: element.numOuros,
+            pratas: 0,
+            bronzes: 0,
+            total: element.numOuros
+        }
+        ret[element.idEquipa] = count
+    });
+
+    ps.forEach(element => {
+        if(ret[element.idEquipa] === undefined){
+            count = {
+                designacao: element.equipa,
+                ouros: 0,
+                pratas: element.numPratas,
+                bronzes: 0,
+                total: element.numPratas
+            }
+            ret[element.idEquipa] = count
+        }
+        else {
+            ret[element.idEquipa].pratas = element.numPratas
+            var tot = parseInt(ret[element.idEquipa].total) + parseInt(element.numPratas)
+            ret[element.idEquipa].total = tot.toString()
+        }
+
+    });
+
+    bs.forEach(element => {
+        if(ret[element.idEquipa] === undefined){
+            count = {
+                designacao: element.equipa,
+                ouros: 0,
+                pratas: 0,
+                bronzes: element.numBronzes,
+                total: element.numBronzes
+            }
+            ret[element.idEquipa] = count
+        }
+        else {
+            ret[element.idEquipa].bronzes = element.numBronzes
+            tot = parseInt(ret[element.idEquipa].total) + parseInt(element.numBronzes)
+            ret[element.idEquipa].total = tot.toString()
+        }
+
+    });
+    return ret
+}
+
+
+Jogos.getContagemMedalhasDoJogo = async function(idJogo){
+    try{
+        var ouros = await getContagemOurosDoJogoPorEquipa(idJogo)
+        var pratas = await getContagemPratasDoJogoPorEquipa(idJogo)
+        var bronzes = await getContagemBronzesDoJogoPorEquipa(idJogo)
+
+        return group(ouros,pratas,bronzes)
+    
+    }
+    catch(e){
+        throw(e)
+    } 
+}

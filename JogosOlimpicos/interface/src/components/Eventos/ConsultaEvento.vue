@@ -20,10 +20,10 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Belongs:</div>
+                    <div class="info-label">Part Of:</div>
                   </v-col>
                   <v-col>
-                    <div class="info-content">{{ evento.info.jogo }}</div>
+                    <div class="info-content" @click="mostraJogo(evento.info.jogo)">{{ evento.info.jogo }}</div>
                   </v-col>
                 </v-row>
                 
@@ -79,6 +79,9 @@ export default {
   },
 
   methods: {
+    mostraJogo: function(e) {
+      this.$router.push('/jogos/' + e)
+    }
   }
   
 }

@@ -93,6 +93,14 @@ router.get('/jogos/:id', function(req, res, next) {
     .catch(e => res.status(500).send(`Erro na listagem do JogoOlimpico ${req.params.id}: ${e}`))
 });
 
+
+router.get('/jogos/:id/contagem', function(req, res, next) {
+  Jogos.getContagemMedalhasDoJogo(req.params.id)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).send(`Erro na listagem das equipas que participaram no JogoOlimpico ${req.params.id}: ${e}`))
+});
+
+
 //Equipas
 
 router.get('/equipas', function(req, res, next) {

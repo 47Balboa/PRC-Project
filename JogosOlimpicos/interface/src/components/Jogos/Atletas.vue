@@ -5,9 +5,9 @@
     </v-col>
     <v-col>
       <div>
-        <div class="text-center d-flex pb-4">
-          <v-btn color="blue" @click="all">all</v-btn>
-          <v-btn color="blue" @click="none">none</v-btn>
+        <div class="text-center d-flex pb-2">
+          <v-btn class="ma-1" color="blue" @click="all">all</v-btn>
+          <v-btn class="ma-1" color="blue" @click="none">none</v-btn>
         </div>
 
         <v-expansion-panels v-model="panel" multiple>

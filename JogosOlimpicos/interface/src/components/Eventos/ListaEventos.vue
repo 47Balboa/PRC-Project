@@ -78,7 +78,6 @@ export default {
 
   methods: {
     mostraEvento: function(item){
-      alert('Clicked Event: ' + JSON.stringify(item))
       this.$router.push("/eventos/" + item.idEvento);
     }
   }

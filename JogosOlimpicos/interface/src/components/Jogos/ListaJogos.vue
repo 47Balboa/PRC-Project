@@ -79,7 +79,6 @@ export default {
 
   methods: {
     mostraJogo: function(item){
-      alert('Clicked Olympic Games: ' + JSON.stringify(item))
       this.$router.push("/jogos/" + item.idJogo);
     }
   }
