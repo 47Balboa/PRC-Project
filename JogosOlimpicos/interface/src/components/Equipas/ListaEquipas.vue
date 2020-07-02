@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-text-field
         v-model="filtrar"
-        label="Filtrar"
+        label="Search"
         single-line
         hide-details
         dark
