@@ -1,7 +1,7 @@
 <template>
   <v-card class="ma-2">
     <v-card-title class="indigo lighten-1" dark>
-      Olympic Games: List of Games in the DB
+       List of Games in the DB
       <v-spacer></v-spacer>
       <v-text-field
         v-model="filtrar"

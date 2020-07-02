@@ -6,6 +6,12 @@ Vue.use(VueRouter)
 
   const routes = [
   
+    {
+      path: '/',
+      name: 'Página Principal',
+      component: () => import( '../views/PaginaPrincipal.vue')
+    
+    },
   {
     path: '/jogos',
     name: 'Página dos Jogos Olimpicos',
