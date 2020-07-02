@@ -27,13 +27,18 @@ export default {
           {
             src: require('@/assets/sprint.jpg'),
           },
+          {
+            src: require('@/assets/esqui.jpg'),
+          },
            {
             src: require('@/assets/rings.jpg'),
           },
         
-         
           {
             src: require('@/assets/high-jump.jpg'),
+          },
+          {
+            src: require('@/assets/patinagem.jpg'),
           },
           {
             src: require('@/assets/weightlifting.jpg'),
