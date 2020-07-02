@@ -22,15 +22,35 @@
         </v-app-bar>
         <router-view></router-view>
       </v-card>
+
     </v-content>
+
+     <v-card >
+    <v-footer
+      
+      class="grey darken-4"
+    >
+      <v-col
+        class="py-2 white--text "
+        cols="12"
+        color="white"
+      >
+        PRC {{ new Date().getFullYear() }} — Made by Ana Filipa Pereira & Shahzod Yusupov
+      </v-col>
+    </v-footer>
+  </v-card>
   </v-app>
 </template>
 
 
 <script>
- 
-
-
-export default {
-}
+  export default {
+    data: () => ({
+      items: [
+        { title: 'History' },
+        { title: 'The Rings' },
+       
+      ],
+    }),
+  }
 </script>

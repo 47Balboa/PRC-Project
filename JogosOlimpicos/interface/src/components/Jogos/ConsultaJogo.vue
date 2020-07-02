@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-alert type="warning" v-if="!jogoCarregado">
-          A carregar informação...
+          Loading information...
       </v-alert>
 
       <v-card v-else>
