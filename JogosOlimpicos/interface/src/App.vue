@@ -10,7 +10,7 @@
         
            </v-toolbar-side-icon>
             
-          <v-toolbar-title class="ma-3">Olympic Games</v-toolbar-title>
+          <v-toolbar-title class="ma-3" @click="$router.push('/')" >Olympic Games</v-toolbar-title>
           
           <v-spacer></v-spacer>
           <v-btn text color= "white" class=" ma-2" light>About</v-btn>
