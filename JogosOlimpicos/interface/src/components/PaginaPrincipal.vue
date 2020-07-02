@@ -1,5 +1,5 @@
 <template>
-  <v-carousel hide-delimiters cycle height="600px">
+  <v-carousel hide-delimiters cycle height="650px">
     <v-carousel-item
       v-for="(item,i) in items"
       :key="i"
@@ -33,12 +33,18 @@ export default {
            {
             src: require('@/assets/rings.jpg'),
           },
+          {
+            src: require('@/assets/triplo.jpg'),
+          },
         
           {
             src: require('@/assets/high-jump.jpg'),
           },
           {
             src: require('@/assets/patinagem.jpg'),
+          },
+          {
+            src: require('@/assets/gymnastics.jpg'),
           },
           {
             src: require('@/assets/weightlifting.jpg'),
