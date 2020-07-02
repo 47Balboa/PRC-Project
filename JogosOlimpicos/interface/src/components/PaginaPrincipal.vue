@@ -33,9 +33,6 @@ export default {
            {
             src: require('@/assets/rings.jpg'),
           },
-          {
-            src: require('@/assets/triplo.jpg'),
-          },
         
           {
             src: require('@/assets/high-jump.jpg'),
