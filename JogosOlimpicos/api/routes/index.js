@@ -4,8 +4,7 @@ var Atletas = require('../controllers/atletas')
 var Eventos = require('../controllers/eventos')
 var Jogos = require('../controllers/jogos')
 var Equipas = require('../controllers/equipas')
-
-/* GET home page. */
+var Stats = require('../controllers/stats')
 
 //Atletas
 
@@ -130,6 +129,31 @@ router.get('/equipas/:id/jogos', function(req, res, next) {
 router.get('/equipas/:id', function(req, res, next) {
   Equipas.getEquipa(req.params.id)
     .then(dados => res.jsonp(dados))
-    .catch(e => res.status(500).send(`Erro na listagem da Equipa${req.params.id}: ${e}`))
+    .catch(e => res.status(500).send(`Erro na listagem da Equipa ${req.params.id}: ${e}`))
 });
+
+
+//STATS
+
+router.get('/stats/top20', function(req, res, next) {
+  Stats.getTop20()
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).send(`Erro na listagem do Top 20: ${e}`))
+});
+
+router.get('/stats/sports', function(req, res, next) {
+  Stats.getDesportos()
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).send(`Erro na listagem dos desportos: ${e}`))
+});
+
+router.get('/stats/:sport/top10', function(req, res, next) {
+  Stats.getTop10DoDesporto(req.params.sport)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).send(`Erro na listagem do Top 10: ${e}`))
+});
+
+
 module.exports = router;
+
+

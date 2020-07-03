@@ -18,7 +18,7 @@
           <v-btn text color= "white" class="ma-2" @click="$router.push('/eventos/')" light>Events</v-btn>
           <v-btn text color= "white" class="ma-2" @click="$router.push('/equipas/')" light>Teams</v-btn>
           <v-btn text color= "white" class="ma-2" @click="$router.push('/atletas/')" light>Athletes</v-btn>
-          <v-btn text color= "white" class="ma-2" light>Statistics</v-btn>
+          <v-btn text color= "white" class="ma-2" @click="$router.push('/statistics/')" light>Statistics</v-btn>
         </v-app-bar>
         <router-view></router-view>
       </v-card>
@@ -26,6 +26,7 @@
     </v-content>
 
      <v-card >
+       <!--
     <v-footer
       
       class="grey darken-4"
@@ -37,7 +38,7 @@
       >
         PRC {{ new Date().getFullYear() }} — Made by Ana Filipa Pereira & Shahzod Yusupov
       </v-col>
-    </v-footer>
+    </v-footer> -->
   </v-card>
   </v-app>
 </template>

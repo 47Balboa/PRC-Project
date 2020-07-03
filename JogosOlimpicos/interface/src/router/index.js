@@ -56,6 +56,11 @@ Vue.use(VueRouter)
     name: 'Consulta Atleta',
     component: () => import( '../views/Atletas/ConsultaAtleta.vue')
   },
+  {
+    path: '/statistics',
+    name: 'Estatiticas',
+    component: () => import( '../views/Statistics.vue')
+  },
   
 ]
 
