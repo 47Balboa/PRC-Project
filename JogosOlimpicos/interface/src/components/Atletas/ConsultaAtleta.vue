@@ -6,7 +6,7 @@
 
       <v-card v-else>
         <v-card-title class="indigo darken-4 white--text" dark>
-            <span class="headline">Atleta: "{{ atleta.info.nome }}" ({{idAtleta}})</span>
+            <span class="headline">Atlethe: "{{ atleta.info.nome }}" </span>
         </v-card-title>
 
         <v-card-text>

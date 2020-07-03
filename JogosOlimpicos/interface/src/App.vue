@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-content>
-      <v-card color="grey lighten-4" flat height="200px" tile>
-        <v-app-bar class="dark " dense dark>
+      <v-card color="white " flat height="200px" tile  >
+        <v-app-bar class="dark " dark dense fixed app >
           
            <v-toolbar-side-icon>
          
@@ -26,10 +26,10 @@
     </v-content>
 
      <v-card >
-       <!--
+      
     <v-footer
       
-      class="grey darken-4"
+      class="grey darken-4" fixed padless 
     >
       <v-col
         class="py-2 white--text "
@@ -38,7 +38,7 @@
       >
         PRC {{ new Date().getFullYear() }} — Made by Ana Filipa Pereira & Shahzod Yusupov
       </v-col>
-    </v-footer> -->
+    </v-footer> 
   </v-card>
   </v-app>
 </template>

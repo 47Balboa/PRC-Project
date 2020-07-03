@@ -1,6 +1,6 @@
 <template>
 	<v-card>
-		<v-card-title class="indigo darken-4 white--text ma-2" dark>
+		<v-card-title class="indigo lighten-1 white--text ma-2" dark>
 			<span class="headline">Statistics</span>
 		</v-card-title>
 
