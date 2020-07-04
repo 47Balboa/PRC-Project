@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-2">
+  <v-card class="ma-2 pb-4">
     <v-card-title class="indigo lighten-1" dark>
        List of Events in the DB
       <v-spacer></v-spacer>
@@ -50,11 +50,9 @@ export default {
     heventos: [
       {text: "Designation", sortable: true, value: 'designacao', class: 'subtitle-1'},
       {text: "Sport", sortable: true, value: 'desporto', class: 'subtitle-1'},
-      {text: "Belongs", sortable: true, value: 'jogosOlimpicos', class: 'subtitle-1'},
+      {text: "Part Of", sortable: true, value: 'jogosOlimpicos', class: 'subtitle-1'},
       {text: "Operations", value: 'ops', class: 'subtitle-1'}
     ],
-    // o v-data-table ja vem com os footer-props implementados; aqui estamos a redefini-los de acordo com o que queremos
-    // para mostrar todos os eventos colocamos -1 na lista, que corresponde a todos e dizemos o nome para esse campo : "Todos"
     footer_props: {
       "items-per-page-text": "Show",
       "items-per-page-options": [10, 20, 50, 100, -1],

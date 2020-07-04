@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-2 pb-6">
       <v-alert type="warning" v-if="!equipaCarregada">
           Loading information...
       </v-alert>
@@ -12,7 +12,7 @@
         <v-card-text>
             <v-row>
               <v-col cols="2">
-                <div class="info-label">Name:</div>
+                <div class="info-label">Name</div>
               </v-col>
               <v-col>
                 <div class="info-content">{{ equipa.info.designacao }}</div>
@@ -20,7 +20,7 @@
             </v-row>
             <v-row>
               <v-col cols="2">
-                <div class="info-label">Medal Count:</div>
+                <div class="info-label">Medal Count</div>
               </v-col>
               <v-col cols="1" v-if="equipa.contagemMedalhas.ouro != 0">
                 <div style="background-color:gold" class="info-content mdi mdi-medal-outline">{{ equipa.contagemMedalhas.ouro }}</div>
@@ -35,9 +35,6 @@
 
             <Jogos :lista="equipa.jogos" />
             <Atletas :lista="equipa.atletas" />
-            <!-- em vez de por tds os eventos que são bues pomos tipo um top10 dos desportos em que a 
-            equipa tem mais participações -->
-
                          
             </v-card-text>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-6 ma-2">
       <v-alert type="warning" v-if="!eventoCarregado">
           Loading information...
       </v-alert>
@@ -12,7 +12,7 @@
         <v-card-text>
             <v-row>
               <v-col cols="2">
-                <div class="info-label">Sport:</div>
+                <div class="info-label">Sport</div>
               </v-col>
               <v-col>
                 <div class="info-content">{{ evento.info.desporto }}</div>
@@ -20,10 +20,10 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Part Of:</div>
+                    <div class="info-label">Part Of</div>
                   </v-col>
                   <v-col>
-                    <div class="info-content" @click="mostraJogo(evento.info.jogo)">{{ evento.info.jogo }}</div>
+                    <div class="info-content" @click="mostraJogo(evento.info.jogo)">{{ evento.info.jogo.substring(0,6) }} {{ evento.info.jogo.substring(6,10) }}</div>
                   </v-col>
                 </v-row>
                 

@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="ouro.length > 0 || prata.length > 0 || bronze.length > 0">
     <v-col cols="2">
-      <div class="info-label">Podium:</div>
+      <div class="info-label">Podium</div>
     </v-col>
     <v-col cols="3" v-if="ouro.length != 0"> 
         <div class="info-content" style="background-color:gold">

@@ -141,14 +141,26 @@ router.get('/stats/top20', function(req, res, next) {
     .catch(e => res.status(500).send(`Erro na listagem do Top 20: ${e}`))
 });
 
-router.get('/stats/sports', function(req, res, next) {
+router.get('/stats/desportos', function(req, res, next) {
   Stats.getDesportos()
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).send(`Erro na listagem dos desportos: ${e}`))
 });
 
-router.get('/stats/:sport/top10', function(req, res, next) {
-  Stats.getTop10DoDesporto(req.params.sport)
+router.get('/stats/:desporto/top10', function(req, res, next) {
+  Stats.getTop10DoDesporto(req.params.desporto)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).send(`Erro na listagem do Top 10: ${e}`))
+});
+
+router.get('/stats/desportos/top10atletas', function(req, res, next) {
+  Stats.getTop10DesportosMaisAtletas()
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).send(`Erro na listagem do Top 10: ${e}`))
+});
+
+router.get('/stats/desportos/top10equipas', function(req, res, next) {
+  Stats.getTop10DesportosMaisEquipas()
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).send(`Erro na listagem do Top 10: ${e}`))
 });

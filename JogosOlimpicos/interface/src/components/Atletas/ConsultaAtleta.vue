@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="ma-2 pb-6">
       <v-alert type="warning" v-if="!atletaCarregado">
           Loading information...
       </v-alert>
 
       <v-card v-else>
         <v-card-title class="indigo darken-4 white--text" dark>
-            <span class="headline">Atlethe: "{{ atleta.info.nome }}" </span>
+            <span class="headline">Athlete: "{{ atleta.info.nome }}" </span>
         </v-card-title>
 
         <v-card-text>
@@ -61,7 +61,16 @@
                     <div style="margin-top:5px;margin-left:-60px" @click="mostraEquipa(atleta.info.idEquipa)" class="content">{{ atleta.info.equipa }}</div> 
                 </v-col>
             </v-row>
-                
+            <v-row>
+                <v-col cols="2">
+                    <div class="info-label">Sports</div>
+                </v-col>
+                <v-col>
+                    <div class="info-content">
+                    {{this.getSports(atleta.desportos)}}
+                    </div>
+                </v-col>
+            </v-row> 
 
             <Medalhas :ouros="atleta.medalhas.ouro" :pratas="atleta.medalhas.prata" :bronzes="atleta.medalhas.bronze"/>
             <Eventos :lista="atleta.eventos" /> 
@@ -97,7 +106,7 @@ export default {
 
   data: () => ({
     atleta: {},
-    atletaCarregado: false
+    atletaCarregado: false,
   }),
 
   created: async function(){
@@ -115,6 +124,13 @@ export default {
     mostraEquipa: function(e) {
       this.$router.push("/equipas/" + e);
     },
+    getSports: function(arr) {
+      var sports = []
+      arr.forEach(element => {
+        sports.push(' '+element.desporto)
+      });
+      return sports.toString()
+    }
   }
   
 }

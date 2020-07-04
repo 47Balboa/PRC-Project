@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-2 pb-6">
       <v-alert type="warning" v-if="!jogoCarregado">
           Loading information...
       </v-alert>
@@ -12,7 +12,7 @@
         <v-card-text>
             <v-row>
               <v-col cols="2">
-                <div class="info-label">City:</div>
+                <div class="info-label">City</div>
               </v-col>
               <v-col>
                 <div class="info-content">{{ jogo.info.cidade}}</div>
@@ -20,7 +20,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Year:</div>
+                    <div class="info-label">Year</div>
                   </v-col>
                   <v-col>
                     <div class="info-content">{{ jogo.info.ano }}</div>
@@ -28,7 +28,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <div class="info-label">Season:</div>
+                    <div class="info-label">Season</div>
                   </v-col>
                   <v-col>
                     <div class="info-content">{{ jogo.info.temporada }}</div>

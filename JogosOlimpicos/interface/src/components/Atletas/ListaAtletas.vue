@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-2">
+  <v-card class="ma-2 pb-4">
     <v-card-title class="indigo lighten-1" dark>
       List of Athletes in the DB
       <v-spacer></v-spacer>
@@ -48,7 +48,6 @@ export default {
 
   data: () => ({
     hatletas: [
-      {text: "ID", sortable: true, value: 'idAtleta', class: 'subtitle-1'},
       {text: "Name", sortable: true, value: 'nome', class: 'subtitle-1'},
       {text: "Age", sortable: true, value: 'idade', class: 'subtitle-1'},
       {text: "Height", sortable: true, value: 'altura', class: 'subtitle-1'},
@@ -57,14 +56,11 @@ export default {
       {text: "Team", sortable: true, value: 'equipa', class: 'subtitle-1'},
       {text: "Operations", value: 'ops', class: 'subtitle-1'}
     ],
-    // o v-data-table ja vem com os footer-props implementados; aqui estamos a redefini-los de acordo com o que queremos
-    // para mostrar todos os equipas colocamos -1 na lista, que corresponde a todos e dizemos o nome para esse campo : "Todos"
     footer_props: {
       "items-per-page-text": "Show",
       "items-per-page-options": [10, 20, 50, 100, -1],
       "items-per-page-all-text": "All"
     }, 
-
     atletas: [],
     filtrar: "",
     verAtleta: mdiEyeOutline  // corresponde ao icon

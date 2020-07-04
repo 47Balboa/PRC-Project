@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="lista.length !=0">
     <v-col cols="2">
-      <div class="info-label">Athletes:</div>
+      <div class="info-label">Athletes By Team</div>
     </v-col>
     <v-col>
       <div>
@@ -12,9 +12,9 @@
 
         <v-expansion-panels v-model="panel" multiple>
           <v-expansion-panel v-for="(item,e) in getTeams(lista)" :key="e">
-            <v-expansion-panel-header><b @click="mostraEquipa(item.id)">{{ item.designacao }}</b></v-expansion-panel-header>
+            <v-expansion-panel-header><b>{{ item }}</b></v-expansion-panel-header>
             <v-expansion-panel-content>
-              <ul v-for="atleta in splitAtletas(item.designacao)" :key="atleta">
+              <ul v-for="atleta in splitAtletas(item)" :key="atleta">
                 <li @click="mostraAtleta(atleta.id)">{{atleta.nome}}</li>
               </ul>
             </v-expansion-panel-content>
@@ -39,9 +39,6 @@ export default {
   methods : {
     mostraAtleta: function(a){
       this.$router.push('/atletas/' + a)
-    },
-    mostraEquipa: function(e){
-      this.$router.push('/equipas/' + e)
     },
     splitAtletas: function(eq){
       var atls = []
@@ -76,11 +73,7 @@ export default {
     getTeams: function(list) {
       var eqs = [];
       list.forEach(element => {
-        var e = {
-          id: element.idEquipa,
-          designacao: element.equipa
-        }
-        eqs.push(e);
+        eqs.push(element.equipa);
       });
       return eqs;
     }

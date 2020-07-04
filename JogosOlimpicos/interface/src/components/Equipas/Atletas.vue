@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="lista.length !=0">
     <v-col cols="2">
-      <div class="info-label">Athletes:</div>
+      <div class="info-label">Athletes</div>
     </v-col>
     <v-col>
       <div>

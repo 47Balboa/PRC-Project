@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-2">
+  <v-card class="ma-2 pb-4">
     <v-card-title class="indigo lighten-1" dark>
        List of Games in the DB
       <v-spacer></v-spacer>

@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="lista.length !=0">
     <v-col cols="2">
-      <div class="info-label">Medal Count:</div>
+      <div class="info-label">Medal Count</div>
     </v-col>
     <v-col cols="1">
     </v-col>

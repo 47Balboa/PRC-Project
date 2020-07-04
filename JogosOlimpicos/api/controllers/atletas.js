@@ -167,6 +167,22 @@ async function getAtletaAtomica(idAtleta){
     } 
 }
 
+async function getDesportosAtleta(idAtleta){
+    var query = `select distinct ?desporto where {
+            c:${idAtleta} a c:Atleta.
+            c:${idAtleta} c:participou ?evento .
+    		?evento c:desporto ?desporto .
+        }` 
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
 
 
 Atletas.getAtleta = async function(idAtleta){
@@ -174,11 +190,13 @@ Atletas.getAtleta = async function(idAtleta){
         var atomica = await getAtletaAtomica(idAtleta)
         var eventos = await Atletas.getEventosDoAtleta(idAtleta)
         var medalhas = await Atletas.getMedalhasDoAtleta(idAtleta)
+        var desportos = await getDesportosAtleta(idAtleta)
         atomica[0].flagCode = countrynames.getCode(atomica[0].equipa)
         var atleta = {
             info : atomica[0],
             eventos: eventos,
-            medalhas: medalhas
+            medalhas: medalhas,
+            desportos: desportos
         }
         return atleta
     }

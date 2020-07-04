@@ -102,5 +102,55 @@ Stats.getTop10DoDesporto = async function(desporto){
 }
 
 
+Stats.getTop10DesportosMaisAtletas = async function(){
+    var query = `select ?desporto (count(distinct ?atl) as ?numAtletas) where {
+            ?atl a c:Atleta.
+            ?atl c:participou ?evento .
+    		?evento c:desporto ?desporto .
+            ?atl c:nome ?atleta.
+        }
+        group by ?desporto
+        order by DESC(?numAtletas)
+        limit 10` 
+
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+Stats.getTop10DesportosMaisEquipas = async function(){
+    var query = `select ?desporto (count(distinct ?equipa) as ?numEquipas) where {
+            ?atl a c:Atleta.
+            ?atl c:participou ?evento .
+    		?evento c:desporto ?desporto .
+            ?atl c:pertence ?equipa .
+        }
+        group by ?desporto
+        order by DESC(?numEquipas)
+        limit 10` 
+
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(getLink + encoded)
+        return myNormalize(response.data)
+    }
+    catch(e){
+        throw(e)
+    } 
+}
+
+
+
+
+    
+
+
 
 
