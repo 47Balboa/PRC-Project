@@ -6,7 +6,7 @@
           
            <v-toolbar-side-icon>
          
-        <v-img :src="require('@/assets/logo.png') " height="25px" width="50px"/>
+        <v-img :src="require('@/assets/logo.png') " height="25px" width="50px" class="ma-3" @click="$router.push('/')"/>
         
            </v-toolbar-side-icon>
             
@@ -17,12 +17,12 @@
           <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          
+          text
           dark
           v-bind="attrs"
           v-on="on"
         >
-          About
+        <v-icon>{{icon}}</v-icon>   About
         </v-btn>
       </template>
       <v-list>
@@ -69,6 +69,8 @@
 
 
 <script>
+import { mdiChevronDown } from '@mdi/js';
+
   export default {
     data: () => ({
       items: [
@@ -76,6 +78,7 @@
         { title: 'Rings' },
        
       ],
+      icon:  mdiChevronDown
     }),
 
     methods: {
