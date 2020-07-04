@@ -13,7 +13,31 @@
           <v-toolbar-title class="ma-3" @click="$router.push('/')" >Olympic Games</v-toolbar-title>
           
           <v-spacer></v-spacer>
-          <v-btn text color= "white" class=" ma-2" light>About</v-btn>
+          
+          <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          About
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="mostra(item)"
+          
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
+      
           <v-btn text color= "white" class=" ma-2" @click="$router.push('/jogos/')" light>Games</v-btn>
           <v-btn text color= "white" class="ma-2" @click="$router.push('/eventos/')" light>Events</v-btn>
           <v-btn text color= "white" class="ma-2" @click="$router.push('/equipas/')" light>Teams</v-btn>
@@ -49,9 +73,15 @@
     data: () => ({
       items: [
         { title: 'History' },
-        { title: 'The Rings' },
+        { title: 'Rings' },
        
       ],
     }),
+
+    methods: {
+    mostra: function(item){
+      this.$router.push("/" + item.title);
+    }
+  }
   }
 </script>

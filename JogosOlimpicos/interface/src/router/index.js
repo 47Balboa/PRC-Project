@@ -12,6 +12,18 @@ Vue.use(VueRouter)
       component: () => import( '../views/PaginaPrincipal.vue')
     
     },
+    {
+      path: '/History',
+      name: 'About - history',
+      component: () => import( '../views/About/History.vue')
+    
+    },
+    {
+      path: '/Rings',
+      name: 'About - rings',
+      component: () => import( '../views/About/Rings.vue')
+    
+    },
   {
     path: '/jogos',
     name: 'Página dos Jogos Olimpicos',
