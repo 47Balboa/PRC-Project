@@ -5,7 +5,7 @@
       </v-alert>
 
       <v-card v-else>
-        <v-card-title class="indigo darken-4 white--text" dark>
+        <v-card-title class="indigo lighten-1 white--text" dark>
             <span class="headline">Team: "{{ equipa.info.designacao }}" ({{idEquipa}}) <country-flag style="float:right; margin-left:15px" :country="equipa.info.flagCode" size="big"/></span>
         </v-card-title>
 

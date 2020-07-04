@@ -75,16 +75,19 @@
         <v-img :src="require('@/assets/ring/black.png') "  width="1000px" class="ma-3"/>
            </v-col>
             <v-col cols="2" class="ma-2">
-        <v-img :src="require('@/assets/ring/blue.png') "  width="1000px" class="ma-3"/>
+        <v-img :src="require('@/assets/ring/red.png') "  width="1000px" class="ma-3"/>
            </v-col>
             <v-col cols="2" class="ma-2">
         <v-img :src="require('@/assets/ring/yellow.png') "  width="1000px" class="ma-3"/>
            </v-col>
             <v-col cols="2" class="ma-2">
-        <v-img :src="require('@/assets/ring/green.png') " height="200px" width="1000px" class="ma-3"/>
+        <v-img :src="require('@/assets/ring/green.png') "  width="1000px" class="ma-3"/>
            </v-col>
             <v-col cols="2" class="ma-2">
         <v-img :src="require('@/assets/ring/bwhite.jpg') "  width="1000px" class="ma-3"/>
+           </v-col>
+              <v-col cols="2" class="ma-2 mb-5">
+        <v-img :src="require('@/assets/ring/blue.png') "  width="1000px" class="ma-3"/>
            </v-col>
 
        </v-row>

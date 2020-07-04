@@ -5,7 +5,7 @@
       </v-alert>
 
       <v-card v-else>
-        <v-card-title class="indigo darken-4 white--text" dark>
+        <v-card-title class="indigo lighten-1 white--text" dark>
             <span class="headline">Event: "{{ evento.info.designacao }}" ({{idEvento}})</span>
         </v-card-title>
 
