@@ -60,7 +60,7 @@
         cols="12"
         color="white"
       >
-        PRC {{ new Date().getFullYear() }} — Made by Ana Filipa Pereira & Shahzod Yusupov
+        PRC {{ new Date().getFullYear() }} — Made by Filipa Pereira & Shahzod Yusupov
       </v-col>
     </v-footer> 
   </v-card>

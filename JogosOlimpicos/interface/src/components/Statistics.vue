@@ -41,7 +41,7 @@
 					<v-select v-model="sportSelected" :items="sports" label="Choose sport" dense outlined></v-select>
 				</v-col>
 				<v-col cols="2">
-					<v-btn class="ma-2" color="blue" @click="showTop10()">Go</v-btn>
+					<v-btn class="ma-2" color="blue darken-1" @click="showTop10()">Go</v-btn>
 				</v-col>
 			</v-row>
 			<v-row>
