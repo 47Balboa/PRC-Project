@@ -7,7 +7,7 @@
 import Rings from '@/components/About/Rings.vue'
 
 export default {
-  name: 'Rings',
+  name: 'AboutRings',
   components: {
     Rings
   }

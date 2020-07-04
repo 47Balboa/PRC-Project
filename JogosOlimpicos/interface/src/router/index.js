@@ -14,13 +14,13 @@ Vue.use(VueRouter)
     },
     {
       path: '/History',
-      name: 'About - history',
+      name: 'History',
       component: () => import( '../views/About/History.vue')
     
     },
     {
       path: '/Rings',
-      name: 'About - rings',
+      name: 'Rings',
       component: () => import( '../views/About/Rings.vue')
     
     },

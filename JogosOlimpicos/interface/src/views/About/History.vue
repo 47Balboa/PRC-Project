@@ -7,7 +7,7 @@
 import History from '@/components/About/History.vue'
 
 export default {
-  name: 'History',
+  name: 'AboutHistory',
   components: {
     History
   }
